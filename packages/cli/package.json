@@ -29,7 +29,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -b && chmod +x dist/index.js"
+    "build": "tsc -b"
   },
   "dependencies": {
     "@marinate/engine": "workspace:*"
