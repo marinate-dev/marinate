@@ -48,5 +48,37 @@
       "https://developers.openai.com/api/docs/changelog"
     ],
     "verifiedAt": "2026-07-23"
+  },
+  {
+    "alias": "opus",
+    "publisher": "anthropic",
+    "currently": "claude-opus-4-8",
+    "variantSuffixes": ["[1m]"],
+    "sources": [
+      "https://code.claude.com/docs/en/model-config",
+      "https://platform.claude.com/docs/en/about-claude/models/overview"
+    ],
+    "verifiedAt": "2026-07-24"
+  },
+  {
+    "alias": "sonnet",
+    "publisher": "anthropic",
+    "currently": "claude-sonnet-5",
+    "variantSuffixes": ["[1m]"],
+    "sources": [
+      "https://code.claude.com/docs/en/model-config",
+      "https://platform.claude.com/docs/en/about-claude/models/overview"
+    ],
+    "verifiedAt": "2026-07-24"
+  },
+  {
+    "alias": "haiku",
+    "publisher": "anthropic",
+    "currently": "claude-haiku-4-5-20251001",
+    "sources": [
+      "https://code.claude.com/docs/en/model-config",
+      "https://platform.claude.com/docs/en/about-claude/models/overview"
+    ],
+    "verifiedAt": "2026-07-24"
   }
 ]

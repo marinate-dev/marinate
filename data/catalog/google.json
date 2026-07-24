@@ -66,6 +66,23 @@
     "verifiedAt": "2026-07-23"
   },
   {
+    "id": "gemini-3.1-pro-preview",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-3",
+    "generation": 3.1,
+    "released": "2026-02-19",
+    "status": "active",
+    "pricing": { "inPerMTok": 2, "outPerMTok": 12 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/models",
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations",
+      "https://ai.google.dev/gemini-api/docs/changelog"
+    ],
+    "verifiedAt": "2026-07-24"
+  },
+  {
     "id": "gemini-2.5-pro",
     "publisher": "google",
     "aliases": [],

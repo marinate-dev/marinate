@@ -181,7 +181,7 @@
     "generation": 5,
     "released": "2026-06-30",
     "status": "active",
-    "pricing": { "inPerMTok": 2, "outPerMTok": 10 },
+    "pricing": { "inPerMTok": 3, "outPerMTok": 15 },
     "capabilities": {
       "samplingParams": false,
       "budgetTokens": false,
@@ -199,7 +199,7 @@
       "https://platform.claude.com/docs/en/build-with-claude/working-with-messages",
       "https://platform.claude.com/docs/en/release-notes/api"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-07-24"
   },
   {
     "id": "claude-sonnet-4-6",
