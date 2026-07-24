@@ -1,0 +1,13 @@
+{
+  "ignore": [
+    "data/**",
+    "docs/**",
+    "tests/fixtures/**",
+    "PLAN.md",
+    "CHECKLIST.md",
+    "RESUME.md",
+    "README.md",
+    "site/**",
+    "**/*.test.ts"
+  ]
+}
