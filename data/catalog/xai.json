@@ -7,7 +7,10 @@
     "generation": 4.5,
     "released": "2026-07",
     "status": "active",
-    "pricing": { "inPerMTok": 2, "outPerMTok": 6 },
+    "pricing": {
+      "inPerMTok": 2,
+      "outPerMTok": 6
+    },
     "sources": [
       "https://docs.x.ai/developers/models",
       "https://docs.x.ai/developers/release-notes"
@@ -21,7 +24,10 @@
     "family": "grok-4",
     "generation": 4.3,
     "status": "active",
-    "pricing": { "inPerMTok": 1.25, "outPerMTok": 2.5 },
+    "pricing": {
+      "inPerMTok": 1.25,
+      "outPerMTok": 2.5
+    },
     "sources": [
       "https://docs.x.ai/developers/models",
       "https://docs.x.ai/developers/migration/may-15-retirement"
@@ -36,7 +42,10 @@
     "generation": 0.1,
     "released": "2026-05",
     "status": "active",
-    "pricing": { "inPerMTok": 1, "outPerMTok": 2 },
+    "pricing": {
+      "inPerMTok": 1,
+      "outPerMTok": 2
+    },
     "sources": [
       "https://docs.x.ai/developers/models",
       "https://docs.x.ai/developers/release-notes"
@@ -134,5 +143,59 @@
       "https://docs.x.ai/developers/migration/may-15-retirement"
     ],
     "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-4.20-0309-reasoning",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4.20",
+    "generation": 4.2,
+    "released": "2026-03",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 1.25,
+      "outPerMTok": 2.5
+    },
+    "sources": [
+      "https://docs.x.ai/developers/models",
+      "https://docs.x.ai/developers/release-notes"
+    ],
+    "verifiedAt": "2026-07-24"
+  },
+  {
+    "id": "grok-4.20-0309-non-reasoning",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4.20",
+    "generation": 4.2,
+    "released": "2026-03",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 1.25,
+      "outPerMTok": 2.5
+    },
+    "sources": [
+      "https://docs.x.ai/developers/models",
+      "https://docs.x.ai/developers/release-notes"
+    ],
+    "verifiedAt": "2026-07-24"
+  },
+  {
+    "id": "grok-4.20-multi-agent-0309",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4.20",
+    "generation": 4.2,
+    "released": "2026-03",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 1.25,
+      "outPerMTok": 2.5
+    },
+    "sources": [
+      "https://docs.x.ai/developers/models",
+      "https://docs.x.ai/developers/release-notes"
+    ],
+    "verifiedAt": "2026-07-24"
   }
 ]

@@ -1,0 +1,76 @@
+# Catalog source watcher (PLAN.md §11).
+#
+# The catalog's value is that it is CURRENT. Nothing in the repo previously noticed
+# when a provider changed a page, so `verifiedAt` stamps were decorative — on
+# 2026-07-24 a shutdown wave landed and the catalog stayed silent. This runs daily,
+# diffs every source URL the catalog itself cites, and files an issue on drift.
+#
+# It deliberately does NOT edit the catalog. Interpreting a diff needs a human reading
+# the live page (PLAN.md §19); a watcher that auto-patched would be exactly the
+# confidently-stale-knowledge failure this product exists to catch.
+name: Catalog watch
+
+on:
+  schedule:
+    # 13:00 UTC daily — after US-morning provider announcements have landed, and early
+    # enough that a same-day data release is still possible.
+    - cron: '0 13 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Diff catalog source pages
+        id: watch
+        # `|| true` because the script exits non-zero on drift BY DESIGN — that's the
+        # signal, not a build failure. The exit code is captured and branched on below.
+        run: |
+          set -o pipefail
+          node scripts/watch-sources.mjs 2>&1 | tee /tmp/watch.txt || true
+          echo "exit=${PIPESTATUS[0]:-0}" >> "$GITHUB_OUTPUT"
+          {
+            echo 'report<<WATCH_EOF'
+            cat /tmp/watch.txt
+            echo 'WATCH_EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Summarise in the run
+        run: |
+          {
+            echo '## Catalog source watch'
+            echo
+            echo '```'
+            cat /tmp/watch.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: File or update the drift issue
+        if: steps.watch.outputs.exit != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPORT: ${{ steps.watch.outputs.report }}
+        run: |
+          TITLE="Catalog source drift detected"
+          BODY=$(printf '%s\n\n---\n\nA provider documentation page that the catalog cites has changed.\n\n**Do not bulk-patch from a summary.** Re-verify the affected values against the live page (PLAN.md §19), update `data/`, then run `node scripts/watch-sources.mjs --update` to accept the new baseline.\n\nRun: %s/%s/actions/runs/%s\n' \
+            "$REPORT" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID")
+
+          # Reuse one open issue rather than filing a new one every day — a daily
+          # duplicate is how a real signal gets muted.
+          EXISTING=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "$BODY"
+          else
+            gh issue create --title "$TITLE" --body "$BODY" --label catalog || \
+              gh issue create --title "$TITLE" --body "$BODY"
+          fi

@@ -7,7 +7,10 @@
     "generation": 3.5,
     "released": "2026-04-28",
     "status": "active",
-    "pricing": { "inPerMTok": 1.5, "outPerMTok": 7.5 },
+    "pricing": {
+      "inPerMTok": 1.5,
+      "outPerMTok": 7.5
+    },
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api",
@@ -23,7 +26,10 @@
     "generation": 4,
     "released": "2026-03-16",
     "status": "active",
-    "pricing": { "inPerMTok": 0.15, "outPerMTok": 0.6 },
+    "pricing": {
+      "inPerMTok": 0.15,
+      "outPerMTok": 0.6
+    },
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api",
@@ -39,7 +45,10 @@
     "generation": 3,
     "released": "2025-12-02",
     "status": "active",
-    "pricing": { "inPerMTok": 0.5, "outPerMTok": 1.5 },
+    "pricing": {
+      "inPerMTok": 0.5,
+      "outPerMTok": 1.5
+    },
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api",
@@ -55,7 +64,10 @@
     "generation": 3,
     "released": "2025-12-02",
     "status": "active",
-    "pricing": { "inPerMTok": 0.1, "outPerMTok": 0.1 },
+    "pricing": {
+      "inPerMTok": 0.1,
+      "outPerMTok": 0.1
+    },
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api",
@@ -71,7 +83,10 @@
     "generation": 3,
     "released": "2025-12-02",
     "status": "active",
-    "pricing": { "inPerMTok": 0.15, "outPerMTok": 0.15 },
+    "pricing": {
+      "inPerMTok": 0.15,
+      "outPerMTok": 0.15
+    },
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api",
@@ -87,7 +102,10 @@
     "generation": 3,
     "released": "2025-12-02",
     "status": "active",
-    "pricing": { "inPerMTok": 0.2, "outPerMTok": 0.2 },
+    "pricing": {
+      "inPerMTok": 0.2,
+      "outPerMTok": 0.2
+    },
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api",
@@ -102,7 +120,10 @@
     "family": "codestral",
     "released": "2025-07-30",
     "status": "active",
-    "pricing": { "inPerMTok": 0.3, "outPerMTok": 0.9 },
+    "pricing": {
+      "inPerMTok": 0.3,
+      "outPerMTok": 0.9
+    },
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api",
@@ -175,7 +196,10 @@
     "status": "deprecated",
     "retiresAt": "2026-07-31",
     "successor": "mistral-medium-3-5",
-    "pricing": { "inPerMTok": 0.4, "outPerMTok": 2 },
+    "pricing": {
+      "inPerMTok": 0.4,
+      "outPerMTok": 2
+    },
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api",
@@ -193,12 +217,53 @@
     "status": "deprecated",
     "retiresAt": "2026-07-31",
     "successor": "mistral-medium-3-5",
-    "pricing": { "inPerMTok": 2, "outPerMTok": 5 },
+    "pricing": {
+      "inPerMTok": 2,
+      "outPerMTok": 5
+    },
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api",
       "https://docs.mistral.ai/getting-started/changelog/"
     ],
     "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "magistral-small-2509",
+    "publisher": "mistral",
+    "aliases": [],
+    "family": "magistral",
+    "generation": 25.09,
+    "status": "deprecated",
+    "retiresAt": "2026-07-31",
+    "successor": "mistral-small-2603",
+    "pricing": {
+      "inPerMTok": 0.5,
+      "outPerMTok": 1.5
+    },
+    "sources": [
+      "https://docs.mistral.ai/getting-started/models/models_overview/",
+      "https://mistral.ai/pricing/api"
+    ],
+    "verifiedAt": "2026-07-24"
+  },
+  {
+    "id": "open-mistral-nemo-2407",
+    "publisher": "mistral",
+    "aliases": [],
+    "family": "open-mistral-nemo",
+    "generation": 24.07,
+    "status": "deprecated",
+    "retiresAt": "2026-07-31",
+    "successor": "ministral-8b-2512",
+    "pricing": {
+      "inPerMTok": 0.15,
+      "outPerMTok": 0.15
+    },
+    "sources": [
+      "https://docs.mistral.ai/getting-started/models/models_overview/",
+      "https://mistral.ai/pricing/api"
+    ],
+    "verifiedAt": "2026-07-24"
   }
 ]

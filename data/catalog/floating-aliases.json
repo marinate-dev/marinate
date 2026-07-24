@@ -86,5 +86,14 @@
       "https://platform.claude.com/docs/en/about-claude/models/overview"
     ],
     "verifiedAt": "2026-07-24"
+  },
+  {
+    "alias": "fable",
+    "publisher": "anthropic",
+    "currently": "claude-fable-5",
+    "sources": [
+      "https://code.claude.com/docs/en/model-config"
+    ],
+    "verifiedAt": "2026-07-24"
   }
 ]

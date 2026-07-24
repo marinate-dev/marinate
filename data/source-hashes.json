@@ -1,0 +1,236 @@
+{
+  "updatedAt": "2026-07-24",
+  "sources": {
+    "https://code.claude.com/docs/en/model-config": {
+      "hash": "76a206f6ecbba509",
+      "length": 66683,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://developers.openai.com/api/docs/changelog": {
+      "hash": "3d7b96802b746ce3",
+      "length": 43254,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/deprecations": {
+      "hash": "302c39265faf495c",
+      "length": 32266,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models": {
+      "hash": "242def6a9e11813c",
+      "length": 12043,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/gpt-3.5-turbo": {
+      "hash": "d88990b58269aa5e",
+      "length": 12042,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/gpt-4-turbo": {
+      "hash": "22ba40b0ae4f6b75",
+      "length": 11871,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/gpt-4.1": {
+      "hash": "c739ceb439fe258d",
+      "length": 11796,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/gpt-4o": {
+      "hash": "6934302b9191f9ba",
+      "length": 12010,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/gpt-4o-mini": {
+      "hash": "6bff903661eedb95",
+      "length": 12124,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/gpt-5": {
+      "hash": "56d9d571fb2d6448",
+      "length": 11949,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/gpt-5.4": {
+      "hash": "f3658fafb313840a",
+      "length": 12384,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/gpt-5.5": {
+      "hash": "e4257e5dd3615f30",
+      "length": 12335,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/gpt-5.6-sol": {
+      "hash": "4eaf75de086afb2f",
+      "length": 12206,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/o1": {
+      "hash": "97a274e383ecd3be",
+      "length": 11846,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/models/o3": {
+      "hash": "1455fb7e4872459e",
+      "length": 12051,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://developers.openai.com/api/docs/pricing": {
+      "hash": "f201ada7da106df5",
+      "length": 17460,
+      "providers": [
+        "openai"
+      ]
+    },
+    "https://docs.mistral.ai/getting-started/changelog/": {
+      "hash": "f30a3106a52fe326",
+      "length": 13126,
+      "providers": [
+        "mistral"
+      ]
+    },
+    "https://docs.mistral.ai/getting-started/models/models_overview/": {
+      "hash": "074bbc96eb025d4c",
+      "length": 7293,
+      "providers": [
+        "mistral"
+      ]
+    },
+    "https://docs.x.ai/developers/migration/may-15-retirement": {
+      "hash": "5f5783b6ca8ec429",
+      "length": 6299,
+      "providers": [
+        "xai"
+      ]
+    },
+    "https://docs.x.ai/developers/models": {
+      "hash": "b74f1deda72d77f7",
+      "length": 5157,
+      "providers": [
+        "xai"
+      ]
+    },
+    "https://docs.x.ai/developers/release-notes": {
+      "hash": "53395a2b365652bd",
+      "length": 13370,
+      "providers": [
+        "xai"
+      ]
+    },
+    "https://mistral.ai/pricing/api": {
+      "hash": "705400ea8a03f053",
+      "length": 11696,
+      "providers": [
+        "mistral"
+      ]
+    },
+    "https://platform.claude.com/docs/en/about-claude/model-deprecations": {
+      "hash": "b646ae6ff4acbce7",
+      "length": 11470,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/migration-guide": {
+      "hash": "f742e81d3d2e8e0f",
+      "length": 112957,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions": {
+      "hash": "028d4afe63a752de",
+      "length": 3799,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/overview": {
+      "hash": "691c14b84436fb90",
+      "length": 13008,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://platform.claude.com/docs/en/about-claude/pricing": {
+      "hash": "415b40523fad9818",
+      "length": 30511,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/effort": {
+      "hash": "c6211c53c9d1b70b",
+      "length": 18724,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/extended-thinking": {
+      "hash": "92a9f319b5221012",
+      "length": 15467,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-caching": {
+      "hash": "f6b389464b932b51",
+      "length": 112974,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/working-with-messages": {
+      "hash": "1d776e4107dcb599",
+      "length": 19149,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://platform.claude.com/docs/en/release-notes/api": {
+      "hash": "80adb5985d169344",
+      "length": 73239,
+      "providers": [
+        "anthropic"
+      ]
+    },
+    "https://www.anthropic.com/news/claude-3-family": {
+      "hash": "2de17374417c3e41",
+      "length": 12982,
+      "providers": [
+        "anthropic"
+      ]
+    }
+  }
+}

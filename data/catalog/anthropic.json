@@ -14,6 +14,7 @@
       "outPerMTok": 50
     },
     "capabilities": {
+      "samplingParams": false,
       "budgetTokens": false,
       "adaptiveThinking": true,
       "prefill": false,
@@ -33,9 +34,10 @@
       "https://platform.claude.com/docs/en/build-with-claude/extended-thinking",
       "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
       "https://platform.claude.com/docs/en/build-with-claude/working-with-messages",
-      "https://platform.claude.com/docs/en/release-notes/api"
+      "https://platform.claude.com/docs/en/release-notes/api",
+      "https://platform.claude.com/docs/en/about-claude/models/migration-guide"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-07-24"
   },
   {
     "id": "claude-mythos-5",
@@ -52,6 +54,7 @@
       "outPerMTok": 50
     },
     "capabilities": {
+      "samplingParams": false,
       "budgetTokens": false,
       "adaptiveThinking": true,
       "prefill": false,
@@ -71,9 +74,10 @@
       "https://platform.claude.com/docs/en/build-with-claude/extended-thinking",
       "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
       "https://platform.claude.com/docs/en/build-with-claude/working-with-messages",
-      "https://platform.claude.com/docs/en/release-notes/api"
+      "https://platform.claude.com/docs/en/release-notes/api",
+      "https://platform.claude.com/docs/en/about-claude/models/migration-guide"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-07-24"
   },
   {
     "id": "claude-opus-5",
@@ -612,5 +616,40 @@
       "https://platform.claude.com/docs/en/release-notes/api"
     ],
     "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "claude-mythos-preview",
+    "publisher": "anthropic",
+    "aliases": [
+      "claude-mythos-preview"
+    ],
+    "family": "claude-mythos",
+    "generation": 4.9,
+    "status": "deprecated",
+    "successor": "claude-mythos-5",
+    "pricing": {
+      "inPerMTok": 10,
+      "outPerMTok": 50
+    },
+    "capabilities": {
+      "samplingParams": false,
+      "budgetTokens": true,
+      "adaptiveThinking": true,
+      "prefill": false,
+      "effort": [
+        "max",
+        "high",
+        "medium",
+        "low"
+      ],
+      "cacheMinTokens": 2048
+    },
+    "sources": [
+      "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+      "https://platform.claude.com/docs/en/about-claude/models/migration-guide",
+      "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+      "https://platform.claude.com/docs/en/about-claude/models/overview"
+    ],
+    "verifiedAt": "2026-07-24"
   }
 ]
