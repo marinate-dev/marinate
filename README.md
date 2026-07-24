@@ -10,7 +10,9 @@ Provider migration tools stop at their own ecosystem. **Marinate is one neutral,
 npx marinate-audit check
 ```
 
-> **Status: pre-alpha.** The scaffold builds and runs; the scanner lands in M1. See [`PLAN.md`](./PLAN.md) — strategy (Part I), engineering spec (Part II), and pitch (Part III) all live there.
+> **Status: public alpha.** Lifecycle findings across five providers — retired, deprecated, superseded and floating-alias model pins, with the documented source and date behind every finding. Parameter rules ("this will break when you upgrade") are the next increment and are deliberately not shipped yet.
+>
+> What it does **not** claim: which model is best for your task, what you're actually paying, or that a cross-provider swap is safe. Every finding cites a provider doc and the date it was checked.
 
 ## Privacy
 

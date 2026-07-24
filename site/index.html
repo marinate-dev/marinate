@@ -116,12 +116,69 @@
   <section id="alerts">
     <h2>Get release alerts</h2>
     <p class="sub">Be notified when a provider change affects one of your pinned models. No spam, unsubscribe anytime.</p>
-    <!-- TODO(cam): point action= at the email backend (Resend audience / Supabase / Formspree). -->
-    <form action="#" method="post" onsubmit="this.querySelector('.note-ok').style.display='block';return false;">
-      <input type="email" name="email" placeholder="you@company.com" required />
+    <!--
+      ONE THING TO SET BEFORE DEPLOY: put your collection endpoint in FORM_ENDPOINT below.
+      Anything that accepts a POST of {"email": "..."} works — a Formspree form URL, a
+      Supabase edge function, or a Resend audience proxy. It must be a public endpoint:
+      this is a static page, so never put an API key here.
+
+      Leave it empty and the form deliberately disables itself rather than pretending to
+      work. The previous version showed "you're on the list" while sending nothing, which
+      is a worse failure than no form at all — people would have believed they'd signed up.
+    -->
+    <form id="alerts-form" novalidate>
+      <input type="email" name="email" placeholder="you@company.com" required autocomplete="email" />
       <button class="cta" type="submit">Notify me</button>
-      <div class="note note-ok" style="display:none;width:100%">Thanks — you're on the list. (Backend wiring pending.)</div>
+      <div class="note form-msg" role="status" aria-live="polite" style="display:none;width:100%"></div>
     </form>
+    <script>
+      (function () {
+        var FORM_ENDPOINT = ""; // <-- set this before deploying
+
+        var form = document.getElementById('alerts-form');
+        var input = form.querySelector('input[name=email]');
+        var button = form.querySelector('button');
+        var msg = form.querySelector('.form-msg');
+
+        function say(text) { msg.textContent = text; msg.style.display = 'block'; }
+
+        if (!FORM_ENDPOINT) {
+          input.disabled = true;
+          button.disabled = true;
+          button.textContent = 'Opening at launch';
+          say('Release alerts open when the alpha ships. Watch the repo in the meantime.');
+          return;
+        }
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          var email = input.value.trim();
+          // Cheap sanity check only — real validation belongs on the endpoint.
+          if (!email || email.indexOf('@') < 1) { say('That address looks incomplete.'); return; }
+
+          button.disabled = true;
+          button.textContent = 'Sending…';
+
+          fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ email: email })
+          })
+            .then(function (res) {
+              if (!res.ok) throw new Error('HTTP ' + res.status);
+              form.reset();
+              button.textContent = 'Done';
+              say("You're on the list.");
+            })
+            .catch(function () {
+              // Say what failed and what to do instead — never swallow it into a success state.
+              button.disabled = false;
+              button.textContent = 'Notify me';
+              say("That didn't go through. Try again, or open an issue on the repo.");
+            });
+        });
+      })();
+    </script>
     <p class="note">Building now: Anthropic + OpenAI compat rules, all-provider staleness catalog.</p>
   </section>
 

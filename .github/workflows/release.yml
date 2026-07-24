@@ -1,0 +1,74 @@
+# Provenance release (PLAN.md §3.6 / §8).
+#
+# NOT ACTIVE UNTIL YOU DO ONE THING FIRST: on npmjs.com, configure trusted publishing
+# for BOTH `@marinate-audit/engine` and `marinate-audit`, linking each to this repo and
+# this workflow file. Until then, publishing stays manual from your machine with 2FA
+# (see RESUME.md) — this workflow will simply fail auth, which is the safe direction.
+#
+# Once trusted publishing is on, tagging a version publishes from CI with a provenance
+# attestation and no token: npm verifies the package was built from this repo at this
+# commit. That closes the gap where a locally-published package can't be traced back to
+# reviewed source — worth having for a tool whose entire value is "you can trust this data".
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Pack and verify without publishing'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  id-token: write # required for npm provenance via OIDC
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm typecheck
+
+      # The data invariants are part of the release gate on purpose. A publish that ships
+      # a catalog with an overdue retirement or an unreachable model ID is exactly the
+      # failure this tool claims to catch, and it must not be possible to release one.
+      - run: pnpm test
+
+      - name: Verify the built binary actually runs
+        run: |
+          node packages/cli/dist/index.js --help >/dev/null
+          mkdir -p /tmp/smoke/.claude
+          echo '{"model":"opus[1m]"}' > /tmp/smoke/.claude/settings.json
+          node packages/cli/dist/index.js check /tmp/smoke
+
+      - name: Publish engine, then CLI
+        if: github.event_name == 'push' || inputs.dry-run == false
+        # Order matters: the CLI declares a workspace dependency on the engine, and
+        # `pnpm publish` rewrites it to the real version at pack time. Publishing the CLI
+        # first would point it at a version that does not exist yet.
+        run: |
+          cd packages/engine && pnpm publish --access public --no-git-checks --provenance
+          cd ../cli && pnpm publish --access public --no-git-checks --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Dry run — pack only
+        if: github.event_name == 'workflow_dispatch' && inputs.dry-run == true
+        run: |
+          cd packages/engine && pnpm pack --pack-destination /tmp/pack
+          cd ../cli && pnpm pack --pack-destination /tmp/pack
+          ls -la /tmp/pack
