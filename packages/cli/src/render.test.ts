@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { shouldFail } from './render.js';
-import type { Finding, Report } from '@marinate/engine';
+import type { Finding, Report } from '@marinate-audit/engine';
 
 function reportWith(severities: Finding['severity'][]): Report {
   const findings: Finding[] = severities.map((severity, i) => ({

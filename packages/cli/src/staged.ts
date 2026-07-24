@@ -8,7 +8,7 @@
  */
 
 import { execFileSync } from 'node:child_process';
-import type { InputFile } from '@marinate/engine';
+import type { InputFile } from '@marinate-audit/engine';
 
 const SCAN_EXTENSIONS = new Set([
   '.py', '.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.rb', '.go', '.java',

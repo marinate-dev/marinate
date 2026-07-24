@@ -14,7 +14,7 @@ inputs:
     required: false
     default: 'breaks'
   version:
-    description: 'Version of @marinate/cli to run. Pin this in security-sensitive CI.'
+    description: 'Version of marinate-audit to run. Pin this in security-sensitive CI.'
     required: false
     default: 'latest'
   comment:
@@ -35,11 +35,11 @@ runs:
       shell: bash
       run: |
         set +e
-        npx --yes "@marinate/cli@${{ inputs.version }}" check "${{ inputs.path }}" \
+        npx --yes "marinate-audit@${{ inputs.version }}" check "${{ inputs.path }}" \
           --json --fail-on "${{ inputs.fail-on }}" > marinate-report.json
         echo "exit=$?" >> "$GITHUB_OUTPUT"
         # Human-readable render for logs (never fails the step itself).
-        npx --yes "@marinate/cli@${{ inputs.version }}" check "${{ inputs.path }}" \
+        npx --yes "marinate-audit@${{ inputs.version }}" check "${{ inputs.path }}" \
           --fail-on none || true
 
     - name: Job summary

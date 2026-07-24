@@ -7,3 +7,6 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# bundled at build time (source: repo-root data/)
+packages/cli/data/

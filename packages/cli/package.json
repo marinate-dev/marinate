@@ -1,42 +1,45 @@
 {
-  "name": "@marinate/cli",
-  "version": "0.0.0",
+  "name": "marinate-audit",
+  "version": "0.1.0",
   "type": "module",
-  "description": "Marinate — finds retired, stale, and upgrade-breaking AI model configurations before they reach production.",
+  "description": "Find retired, stale, and upgrade-breaking AI model configurations before they reach production. Local, zero-credential, all major providers.",
   "keywords": [
     "llm",
     "ai",
     "model",
     "deprecation",
     "lint",
+    "audit",
     "anthropic",
     "openai",
+    "gemini",
     "static-analysis"
   ],
+  "homepage": "https://marinate.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marinate-dev/marinate.git",
+    "directory": "packages/cli"
+  },
+  "bugs": "https://github.com/marinate-dev/marinate/issues",
   "engines": {
     "node": ">=22"
   },
   "bin": {
     "marinate": "./dist/index.js"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
   "files": [
-    "dist"
+    "dist",
+    "data"
   ],
   "scripts": {
-    "build": "tsc -b"
+    "build": "tsc -b && node scripts/bundle-data.mjs"
   },
   "dependencies": {
-    "@marinate/engine": "workspace:*"
+    "@marinate-audit/engine": "workspace:*"
   },
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   },
   "license": "MIT",
   "devDependencies": {

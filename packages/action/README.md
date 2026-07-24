@@ -27,7 +27,7 @@ jobs:
 |---|---|---|
 | `path` | `.` | Directory to scan |
 | `fail-on` | `breaks` | Fail the job at this severity or above |
-| `version` | `latest` | `@marinate/cli` version — **pin it** in sensitive CI |
+| `version` | `latest` | `marinate-audit` version — **pin it** in sensitive CI |
 | `comment` | `false` | Reserved for PR comments (needs `pull-requests: write`) |
 
 The action writes a findings table to the job summary and exits non-zero only when

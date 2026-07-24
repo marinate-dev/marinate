@@ -8,7 +8,7 @@
 
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
-import type { InputFile } from '@marinate/engine';
+import type { InputFile } from '@marinate-audit/engine';
 import { loadGitignore, type IgnoreMatcher } from './gitignore.js';
 
 /** Directories never worth walking. */

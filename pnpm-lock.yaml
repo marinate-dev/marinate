@@ -20,7 +20,7 @@ importers:
 
   packages/cli:
     dependencies:
-      '@marinate/engine':
+      '@marinate-audit/engine':
         specifier: workspace:*
         version: link:../engine
     devDependencies:

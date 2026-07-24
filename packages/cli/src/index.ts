@@ -10,8 +10,8 @@
 
 import { parseArgs } from 'node:util';
 import { resolve } from 'node:path';
-import { analyze, ENGINE_VERSION, explainRule } from '@marinate/engine';
-import type { FailOn, InputFile, SuppressionRule } from '@marinate/engine';
+import { analyze, ENGINE_VERSION, explainRule } from '@marinate-audit/engine';
+import type { FailOn, InputFile, SuppressionRule } from '@marinate-audit/engine';
 import { walk } from './walk.js';
 import { readStaged } from './staged.js';
 import { loadCatalog, loadRules } from './data.js';

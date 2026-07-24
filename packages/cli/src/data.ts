@@ -14,8 +14,8 @@ import { readFileSync } from 'node:fs';
 import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { Catalog, CatalogEntry, FloatingAlias, RuleSet } from '@marinate/engine';
-import { assertValidCatalogFile, assertValidFloatingFile } from '@marinate/engine';
+import type { Catalog, CatalogEntry, FloatingAlias, RuleSet } from '@marinate-audit/engine';
+import { assertValidCatalogFile, assertValidFloatingFile } from '@marinate-audit/engine';
 
 const PUBLISHERS = ['anthropic', 'openai', 'google', 'xai', 'meta', 'mistral'] as const;
 

@@ -8,7 +8,7 @@
 
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { FailOn, SuppressionRule } from '@marinate/engine';
+import type { FailOn, SuppressionRule } from '@marinate-audit/engine';
 
 export interface MarinateConfig {
   readonly failOn?: FailOn;

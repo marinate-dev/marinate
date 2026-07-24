@@ -7,7 +7,7 @@
  * real behavior.
  */
 
-import type { FailOn, Finding, Report, Severity } from '@marinate/engine';
+import type { FailOn, Finding, Report, Severity } from '@marinate-audit/engine';
 
 const SEVERITY_ORDER: Record<Severity, number> = {
   breaks_now: 0,

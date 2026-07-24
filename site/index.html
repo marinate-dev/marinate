@@ -6,7 +6,7 @@
 <title>Marinate — find stale & breaking AI model configs before production</title>
 <meta name="description" content="Model IDs rot. Marinate scans your repo locally and flags retired, stale, and drifting AI model pins — with sources — before they break production. Free CLI, all major providers." />
 <meta property="og:title" content="Marinate — your AI model config is a dependency that rots" />
-<meta property="og:description" content="A local, zero-credential scanner that finds retired, stale, and drifting model pins across every major provider. npx @marinate/cli check" />
+<meta property="og:description" content="A local, zero-credential scanner that finds retired, stale, and drifting model pins across every major provider. npx marinate-audit check" />
 <style>
   :root{
     --bg:#0d0f12; --panel:#14171c; --line:#242a31; --text:#e8eaed; --dim:#9aa4af;
@@ -65,7 +65,7 @@
     <div class="logo"><span class="mark">🥩</span>Marinate</div>
     <h1>Your AI model config is a<br><span class="accent">dependency that rots.</span></h1>
     <p class="lede">Model IDs get retired. Newer, cheaper versions ship every few weeks. Pinned names silently drift. Nobody re-checks. Marinate scans your repo locally and tells you what's stale — with sources — before it breaks production.</p>
-    <div class="cmd"><span class="prompt">$</span><span>npx @marinate/cli check</span><button class="copy" onclick="navigator.clipboard&&navigator.clipboard.writeText('npx @marinate/cli check')">copy</button></div>
+    <div class="cmd"><span class="prompt">$</span><span>npx marinate-audit check</span><button class="copy" onclick="navigator.clipboard&&navigator.clipboard.writeText('npx marinate-audit check')">copy</button></div>
   </header>
 
   <section>

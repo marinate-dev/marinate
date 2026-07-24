@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { analyze } from '@marinate/engine';
-import type { Catalog, InputFile, RuleSet } from '@marinate/engine';
+import { analyze } from '@marinate-audit/engine';
+import type { Catalog, InputFile, RuleSet } from '@marinate-audit/engine';
 import { renderReport } from './render.js';
 
 /**

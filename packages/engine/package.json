@@ -1,11 +1,13 @@
 {
-  "name": "@marinate/engine",
-  "version": "0.0.0",
-  "private": true,
+  "name": "@marinate-audit/engine",
+  "version": "0.1.0",
   "type": "module",
-  "description": "Marinate analysis engine — PURE: no filesystem, no network, no process access.",
+  "description": "Marinate analysis engine — PURE: no filesystem, no network, no process access. Internal to the marinate-audit CLI.",
   "engines": {
     "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "exports": {
     ".": {

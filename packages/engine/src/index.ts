@@ -1,5 +1,5 @@
 /**
- * @marinate/engine — pure analysis core.
+ * @marinate-audit/engine — pure analysis core.
  *
  * Hard constraint: this package must never import `node:fs`, `node:process`,
  * `node:net`, or perform any IO. Everything it needs arrives as arguments and

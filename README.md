@@ -7,7 +7,7 @@ Model IDs and request parameters are spreading across application code, config f
 Provider migration tools stop at their own ecosystem. **Marinate is one neutral, local compatibility check across providers and repositories.**
 
 ```bash
-npx @marinate/cli check
+npx marinate-audit check
 ```
 
 > **Status: pre-alpha.** The scaffold builds and runs; the scanner lands in M1. See [`PLAN.md`](./PLAN.md) — strategy (Part I), engineering spec (Part II), and pitch (Part III) all live there.
