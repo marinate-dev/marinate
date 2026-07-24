@@ -15,6 +15,7 @@ import { existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { Catalog, CatalogEntry, FloatingAlias, RuleSet } from '@marinate/engine';
+import { assertValidCatalogFile, assertValidFloatingFile } from '@marinate/engine';
 
 const PUBLISHERS = ['anthropic', 'openai', 'google', 'xai', 'meta', 'mistral'] as const;
 
@@ -43,14 +44,19 @@ export function loadCatalog(override?: string): Catalog {
   for (const publisher of PUBLISHERS) {
     const path = join(root, 'catalog', `${publisher}.json`);
     if (!existsSync(path)) continue;
-    const entries = readJson<CatalogEntry[]>(path);
+    const entries = readJson<unknown>(path);
+    // Fail loudly and specifically on bad data, never a raw crash mid-scan.
+    assertValidCatalogFile(entries, `catalog/${publisher}.json`);
     models.push(...entries);
   }
 
   const floatingPath = join(root, 'catalog', 'floating-aliases.json');
-  const floatingAliases: FloatingAlias[] = existsSync(floatingPath)
-    ? readJson<FloatingAlias[]>(floatingPath)
-    : [];
+  let floatingAliases: FloatingAlias[] = [];
+  if (existsSync(floatingPath)) {
+    const parsed = readJson<unknown>(floatingPath);
+    assertValidFloatingFile(parsed, 'catalog/floating-aliases.json');
+    floatingAliases = parsed;
+  }
 
   const versionPath = join(root, 'version.json');
   const version = existsSync(versionPath)

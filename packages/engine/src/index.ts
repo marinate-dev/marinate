@@ -18,6 +18,13 @@ export {
   type CatalogIndex,
 } from './catalog.js';
 export { findingKey } from './key.js';
+export {
+  assertValidCatalogFile,
+  assertValidFloatingFile,
+  validateCatalogEntry,
+  validateFloatingAlias,
+} from './validate.js';
+export { RULE_INFO, explainRule } from './explain.js';
 
 /** Engine version, reported for reproducibility. */
 export const ENGINE_VERSION = '0.1.0';

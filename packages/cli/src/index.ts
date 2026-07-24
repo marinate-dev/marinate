@@ -10,11 +10,14 @@
 
 import { parseArgs } from 'node:util';
 import { resolve } from 'node:path';
-import { analyze, ENGINE_VERSION } from '@marinate/engine';
-import type { FailOn } from '@marinate/engine';
+import { analyze, ENGINE_VERSION, explainRule } from '@marinate/engine';
+import type { FailOn, InputFile, SuppressionRule } from '@marinate/engine';
 import { walk } from './walk.js';
+import { readStaged } from './staged.js';
 import { loadCatalog, loadRules } from './data.js';
+import { loadConfig, expiredSuppressions } from './config.js';
 import { renderReport, shouldFail } from './render.js';
+import { showPrivacyNoticeOnce } from './banner.js';
 
 const CLI_VERSION = '0.1.0';
 
@@ -28,9 +31,15 @@ const HELP = `
 
   OPTIONS
     --fail-on <level>            breaks | upgrade | behavior | stale | none  (default: breaks)
+    --staged                     Scan the git index (for pre-commit hooks)
     --json                       Emit the machine-readable report on stdout
+    --explain <RULE>             Print what a rule means (e.g. LC-STALE) and exit
     -h, --help                   Show this help
     -v, --version                Show version
+
+  CONFIG
+    marinate.config.json at the repo root may set failOn, ignore globs, and
+    suppress[] (each suppression needs a reason). Command-line flags override it.
 
   EXIT CODES
     0  no findings at or above the threshold
@@ -56,28 +65,76 @@ function isExitError(error: unknown): error is ExitError {
   return error instanceof Error && typeof (error as ExitError).exitCode === 'number';
 }
 
-function runCheck(path: string, options: { failOn: FailOn; json: boolean }): number {
+/** Minimal glob match for config `ignore` (same semantics as engine suppression paths). */
+function matchesAny(globs: readonly string[], file: string): boolean {
+  for (const glob of globs) {
+    const re = new RegExp(
+      '^' +
+        glob
+          .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+          .replace(/\*\*/g, ' ')
+          .replace(/\*/g, '[^/]*')
+          .replace(/ /g, '.*') +
+        '$',
+    );
+    if (re.test(file)) return true;
+  }
+  return false;
+}
+
+interface CheckOptions {
+  readonly failOn: FailOn;
+  readonly json: boolean;
+  readonly staged: boolean;
+}
+
+function runCheck(path: string, cli: Partial<CheckOptions>): number {
   const root = resolve(path);
-  const { files, skippedLarge, errors } = walk(root);
-  const catalog = loadCatalog();
-  const rules = loadRules();
+  const config = loadConfig(root);
 
-  const report = analyze(files, catalog, rules, {
-    now: new Date().toISOString(),
-    cliVersion: CLI_VERSION,
-  });
+  // Precedence: CLI flag > config file > built-in default.
+  const failOn: FailOn = cli.failOn ?? config.failOn ?? 'breaks';
+  const json = cli.json ?? false;
+  const now = new Date().toISOString();
+  const today = now.slice(0, 10);
 
-  if (options.json) {
-    process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+  // Gather files (working tree or git index).
+  let files: InputFile[];
+  const warnings: string[] = [];
+  if (cli.staged) {
+    const staged = readStaged(root);
+    files = staged.files;
+    warnings.push(...staged.errors);
   } else {
-    process.stdout.write(renderReport(report, CLI_VERSION, ENGINE_VERSION));
-    if (skippedLarge > 0) {
-      process.stderr.write(`  (skipped ${skippedLarge} file(s) over 1 MB)\n`);
-    }
-    for (const err of errors) process.stderr.write(`  warning: ${err}\n`);
+    const walked = walk(root);
+    files = walked.files;
+    warnings.push(...walked.errors);
+    if (walked.skippedLarge > 0) warnings.push(`skipped ${walked.skippedLarge} large/minified file(s)`);
   }
 
-  return shouldFail(report, options.failOn) ? 1 : 0;
+  // Apply config `ignore` globs.
+  if (config.ignore && config.ignore.length > 0) {
+    files = files.filter((f) => !matchesAny(config.ignore!, f.path));
+  }
+
+  const catalog = loadCatalog();
+  const rules = loadRules();
+  const suppress: SuppressionRule[] = [...(config.suppress ?? [])];
+
+  const report = analyze(files, catalog, rules, { now, cliVersion: CLI_VERSION, suppress });
+
+  if (json) {
+    process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+  } else {
+    showPrivacyNoticeOnce((s) => process.stderr.write(s));
+    process.stdout.write(renderReport(report, CLI_VERSION, ENGINE_VERSION));
+    for (const w of warnings) process.stderr.write(`  note: ${w}\n`);
+    for (const s of expiredSuppressions(config, today)) {
+      process.stderr.write(`  warning: suppression for ${s.rule} expired ${s.expires} — it no longer hides anything\n`);
+    }
+  }
+
+  return shouldFail(report, failOn) ? 1 : 0;
 }
 
 function main(argv: readonly string[]): number {
@@ -86,7 +143,9 @@ function main(argv: readonly string[]): number {
     allowPositionals: true,
     options: {
       'fail-on': { type: 'string' },
+      staged: { type: 'boolean', default: false },
       json: { type: 'boolean', default: false },
+      explain: { type: 'string' },
       help: { type: 'boolean', short: 'h', default: false },
       version: { type: 'boolean', short: 'v', default: false },
     },
@@ -96,6 +155,15 @@ function main(argv: readonly string[]): number {
     process.stdout.write(`${CLI_VERSION}\n`);
     return 0;
   }
+
+  // --explain is a lookup, not a scan: print and exit.
+  if (values.explain !== undefined) {
+    const text = explainRule(values.explain);
+    if (!text) fail(`unknown rule ${JSON.stringify(values.explain)}. Known rules: LC-RETIRED, LC-DEPRECATED, LC-STALE, LC-FLOATING, UNKNOWN-MODEL`);
+    process.stdout.write(`\n${text}`);
+    return 0;
+  }
+
   if (values.help || positionals.length === 0) {
     process.stdout.write(`${HELP}\n`);
     return 0;
@@ -103,14 +171,18 @@ function main(argv: readonly string[]): number {
 
   const [command, ...rest] = positionals;
 
-  const failOnRaw = values['fail-on'] ?? 'breaks';
-  if (!FAIL_ON_VALUES.includes(failOnRaw as FailOn)) {
+  const failOnRaw = values['fail-on'];
+  if (failOnRaw !== undefined && !FAIL_ON_VALUES.includes(failOnRaw as FailOn)) {
     fail(`invalid --fail-on value ${JSON.stringify(failOnRaw)}; expected one of: ${FAIL_ON_VALUES.join(', ')}`);
   }
 
   switch (command) {
     case 'check':
-      return runCheck(rest[0] ?? '.', { failOn: failOnRaw as FailOn, json: values.json ?? false });
+      return runCheck(rest[0] ?? '.', {
+        ...(failOnRaw !== undefined ? { failOn: failOnRaw as FailOn } : {}),
+        json: values.json ?? false,
+        staged: values.staged ?? false,
+      });
     default:
       fail(`unknown command ${JSON.stringify(command)}. Run \`marinate --help\`.`);
   }

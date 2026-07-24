@@ -1,0 +1,92 @@
+name: 'Marinate'
+description: 'Find retired, stale, and upgrade-breaking AI model configurations before they reach production.'
+branding:
+  icon: 'alert-triangle'
+  color: 'orange'
+
+inputs:
+  path:
+    description: 'Directory to scan.'
+    required: false
+    default: '.'
+  fail-on:
+    description: 'Fail the job at this severity or above: breaks | upgrade | behavior | stale | none.'
+    required: false
+    default: 'breaks'
+  version:
+    description: 'Version of @marinate/cli to run. Pin this in security-sensitive CI.'
+    required: false
+    default: 'latest'
+  comment:
+    description: 'Post a summary comment on the pull request (needs pull-requests: write).'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Run marinate
+      id: marinate
+      shell: bash
+      run: |
+        set +e
+        npx --yes "@marinate/cli@${{ inputs.version }}" check "${{ inputs.path }}" \
+          --json --fail-on "${{ inputs.fail-on }}" > marinate-report.json
+        echo "exit=$?" >> "$GITHUB_OUTPUT"
+        # Human-readable render for logs (never fails the step itself).
+        npx --yes "@marinate/cli@${{ inputs.version }}" check "${{ inputs.path }}" \
+          --fail-on none || true
+
+    - name: Job summary
+      shell: bash
+      run: |
+        node -e '
+          const fs = require("fs");
+          let r;
+          try { r = JSON.parse(fs.readFileSync("marinate-report.json", "utf8")); }
+          catch { process.exit(0); }
+          const s = r.summary;
+          const lines = [];
+          lines.push("## 🥩 Marinate — model config check");
+          lines.push("");
+          lines.push(`Scanned **${r.filesScanned}** files · **${r.references}** model references · data \`${r.dataVersion}\``);
+          lines.push("");
+          if (r.findings.length === 0) {
+            lines.push("✅ No lifecycle or staleness findings.");
+          } else {
+            lines.push("| Severity | Location | Finding |");
+            lines.push("|---|---|---|");
+            const order = { breaks_now:0, upgrade_blocker:1, behavior_change:2, stale:3, unresolved:4 };
+            for (const f of [...r.findings].sort((a,b)=>order[a.severity]-order[b.severity])) {
+              const sev = { breaks_now:"✕ BREAKS", upgrade_blocker:"✕ UPGRADE", behavior_change: f.downgraded?"▲ REVIEW":"▲ BEHAVIOR", stale:"● STALE", unresolved:"? UNRESOLVED" }[f.severity];
+              const msg = String(f.message).replace(/\|/g, "\\|").slice(0, 180);
+              lines.push(`| ${sev} | \`${f.file}:${f.line}\` | ${msg} |`);
+            }
+            lines.push("");
+            const parts = [];
+            if (s.breaksNow) parts.push(`${s.breaksNow} breaks`);
+            if (s.upgradeBlocker) parts.push(`${s.upgradeBlocker} upgrade`);
+            if (s.behaviorChange) parts.push(`${s.behaviorChange} behavior/review`);
+            if (s.stale) parts.push(`${s.stale} stale`);
+            if (s.unresolved) parts.push(`${s.unresolved} unresolved`);
+            if (s.suppressed) parts.push(`${s.suppressed} suppressed`);
+            lines.push("**" + parts.join(" · ") + "**");
+          }
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join("\n") + "\n");
+        '
+
+    - name: Enforce threshold
+      shell: bash
+      run: |
+        if [ "${{ steps.marinate.outputs.exit }}" = "1" ]; then
+          echo "::error::marinate found configs at or above the '${{ inputs.fail-on }}' threshold"
+          exit 1
+        elif [ "${{ steps.marinate.outputs.exit }}" = "2" ]; then
+          echo "::error::marinate failed to run (configuration or execution error)"
+          exit 2
+        fi
