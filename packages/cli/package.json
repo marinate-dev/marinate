@@ -1,0 +1,45 @@
+{
+  "name": "@marinate/cli",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Marinate — finds retired, stale, and upgrade-breaking AI model configurations before they reach production.",
+  "keywords": [
+    "llm",
+    "ai",
+    "model",
+    "deprecation",
+    "lint",
+    "anthropic",
+    "openai",
+    "static-analysis"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "marinate": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b && chmod +x dist/index.js"
+  },
+  "dependencies": {
+    "@marinate/engine": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^26.1.1"
+  }
+}

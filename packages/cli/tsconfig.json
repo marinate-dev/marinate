@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    // Explicit rather than ambient: the CLI is the only package allowed to touch
+    // Node APIs. The engine deliberately declares no types at all, so any accidental
+    // `node:fs` import there fails to compile (PLAN.md §11 engine purity).
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts"],
+  "references": [{ "path": "../engine" }]
+}
