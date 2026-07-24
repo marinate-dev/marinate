@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Marinate — finds retired, stale, and upgrade-breaking AI model configurations before they reach production.",
+  "packageManager": "pnpm@11.1.3",
   "engines": {
     "node": ">=22"
   },
