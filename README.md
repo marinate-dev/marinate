@@ -2,7 +2,7 @@
 
 **Finds retired, stale, and upgrade-breaking AI model configurations before they reach production.**
 
-Model IDs and request parameters are spreading across application code, config files, and AI frameworks — and almost nobody re-checks a pin after writing it. Meanwhile releases ship every few weeks across Anthropic, OpenAI, Google, xAI, and Meta. Repos silently end up stale (a documented successor exists, often better *and* cheaper at published rates), broken on upgrade (parameters that are now documented-rejected, tool versions that must change in pairs, retired model IDs), or silently degraded (cache minimums move and caching turns off with no error).
+Model IDs and request parameters are spreading across application code, config files, and AI frameworks — and almost nobody re-checks a pin after writing it. Meanwhile releases ship every few weeks across Anthropic, OpenAI, Google, xAI, and Mistral. Repos silently end up stale (a documented successor exists, often better *and* cheaper at published rates), broken on upgrade (parameters that are now documented-rejected, tool versions that must change in pairs, retired model IDs), or silently degraded (cache minimums move and caching turns off with no error).
 
 Provider migration tools stop at their own ecosystem. **Marinate is one neutral, local compatibility check across providers and repositories.**
 

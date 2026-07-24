@@ -36,7 +36,15 @@ const GRAMMARS: readonly Grammar[] = [
   { publisher: 'google', pattern: /\bgemini-[0-9]+(?:\.[0-9]+)?-[a-z0-9.-]+\b/gi },
   { publisher: 'xai', pattern: /\bgrok-[a-z0-9.-]+\b/gi },
   { publisher: 'meta', pattern: /\b(?:meta-)?llama[-/][a-z0-9.-]+\b/gi },
-  { publisher: 'mistral', pattern: /\b(?:mistral|mixtral|codestral)-[a-z0-9.-]+\b/gi },
+  // Mistral does NOT prefix its family names with "mistral" — ministral-, devstral-,
+  // magistral- and pixtral- are all first-class product lines, and several ship with an
+  // `open-` prefix. The original 3-alternation grammar left 5 real catalog entries
+  // permanently unreachable (found by the catalog↔grammar reachability invariant, not
+  // by doc verification — see data-invariants.test.ts).
+  {
+    publisher: 'mistral',
+    pattern: /\b(?:open-)?(?:mistral|mixtral|codestral|ministral|devstral|magistral|pixtral)-[a-z0-9.-]+\b/gi,
+  },
 ];
 
 /** Bare model tokens too word-like for the free-text grammar; matched quoted only. */

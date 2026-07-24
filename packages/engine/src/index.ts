@@ -10,7 +10,7 @@
 
 export * from './types.js';
 export { analyze } from './analyze.js';
-export { detectReferences, detectAll } from './detect.js';
+export { detectReferences, detectAll, isWordLikeModelToken } from './detect.js';
 export {
   indexCatalog,
   generationsBehind,
