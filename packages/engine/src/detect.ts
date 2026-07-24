@@ -29,12 +29,20 @@ interface Grammar {
 const GRAMMARS: readonly Grammar[] = [
   // anthropic. / vertex @-dated forms are Anthropic too; the base grammar catches them.
   { publisher: 'anthropic', pattern: /\b(?:anthropic\.)?claude-[a-z0-9]+(?:[-.][a-z0-9]+)*\b/gi },
-  { publisher: 'openai', pattern: /\b(?:gpt-[a-z0-9.]+(?:-[a-z0-9.]+)*|o[0-9]+(?:-[a-z]+)?|chatgpt-[a-z0-9.-]+)\b/gi },
+  // o-series REQUIRES a suffix (o1-mini, o4-mini, o1-2024-12-17). Bare `o1`/`o3` are
+  // matched only as quoted literals (see BARE_ALIAS_GRAMMAR / detectAliasReferences),
+  // so `const o1 = ...` no longer resolves to a model (CP1 finding F1).
+  { publisher: 'openai', pattern: /\b(?:gpt-[a-z0-9.]+(?:-[a-z0-9.]+)*|o[0-9]+-[a-z0-9][a-z0-9.-]*|chatgpt-[a-z0-9.-]+)\b/gi },
   { publisher: 'google', pattern: /\bgemini-[0-9]+(?:\.[0-9]+)?-[a-z0-9.-]+\b/gi },
   { publisher: 'xai', pattern: /\bgrok-[a-z0-9.-]+\b/gi },
   { publisher: 'meta', pattern: /\b(?:meta-)?llama[-/][a-z0-9.-]+\b/gi },
   { publisher: 'mistral', pattern: /\b(?:mistral|mixtral|codestral)-[a-z0-9.-]+\b/gi },
 ];
+
+/** Bare model tokens too word-like for the free-text grammar; matched quoted only. */
+export function isWordLikeModelToken(raw: string): boolean {
+  return /^o[0-9]+$/i.test(raw);
+}
 
 /** File shapes that hold configuration rather than code. */
 const CONFIG_EXTENSIONS = new Set(['.json', '.yaml', '.yml', '.toml']);
@@ -125,6 +133,7 @@ export function detectReferences(file: InputFile): ModelReference[] {
         raw: match[0],
         publisher,
         context,
+        viaQuotedLiteral: false,
       });
     }
   }
@@ -181,6 +190,7 @@ export function detectAliasReferences(
         raw: inner,
         publisher,
         context,
+        viaQuotedLiteral: true,
       });
     }
   }

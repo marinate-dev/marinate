@@ -194,6 +194,94 @@ describe('analyze — suppression', () => {
   });
 });
 
+describe('analyze — CP1 regressions (false positives that would kill trust)', () => {
+  it('F1: a variable named o1 does NOT resolve to the deprecated o1 model', () => {
+    const catalog: Catalog = {
+      ...CATALOG,
+      models: [
+        ...CATALOG.models,
+        {
+          id: 'o1-2024-12-17', publisher: 'openai', aliases: ['o1'], family: 'o1',
+          generation: 1, status: 'deprecated', retiresAt: '2026-10-23', successor: 'gpt-5',
+          sources: ['https://developers.openai.com/api/docs/deprecations'], verifiedAt: '2026-07-23',
+        },
+      ],
+    };
+    const bare = analyze([{ path: 'src/telemetry.ts', text: `const o1 = readSensor();\no1.append(x);` }], catalog, RULES, OPTS);
+    expect(bare.findings.filter((f) => f.rule !== 'unresolved')).not.toContainEqual(
+      expect.objectContaining({ rule: 'LC-DEPRECATED' }),
+    );
+    expect(bare.summary.stale).toBe(0);
+    // But a quoted "o1" IS a real pin and must still resolve.
+    const quoted = analyze([{ path: 'src/x.ts', text: `model: "o1"` }], catalog, RULES, OPTS);
+    expect(quoted.findings.find((f) => f.rule === 'LC-DEPRECATED')).toBeDefined();
+  });
+
+  it('F2: retirement message does not assert "no longer accessible"', () => {
+    const report = run([{ path: 'x.py', text: `"claude-3-5-sonnet-20241022"` }]);
+    const retired = report.findings.find((f) => f.rule === 'LC-RETIRED');
+    expect(retired!.message).not.toContain('no longer accessible');
+    expect(retired!.message.toLowerCase()).toContain('varies by publisher');
+  });
+
+  it('S5: a floating alias in unquoted prose does not fail --fail-on behavior', () => {
+    const catalog: Catalog = {
+      ...CATALOG,
+      floatingAliases: [
+        { alias: 'gpt-5.6', publisher: 'openai', currently: 'gpt-5.6-sol', sources: ['https://x'], verifiedAt: '2026-07-23' },
+      ],
+    };
+    const report = analyze([{ path: 'CHANGELOG.md', text: `Swapped to gpt-5.6 after the benchmark.` }], catalog, RULES, OPTS);
+    const floating = report.findings.find((f) => f.rule === 'LC-FLOATING');
+    // Emitted (informative) but downgraded and NOT behavior-severity → can't fail CI at behavior.
+    if (floating) {
+      expect(floating.downgraded).toBe(true);
+      expect(floating.severity).toBe('unresolved');
+    }
+    expect(report.summary.behaviorChange).toBe(0);
+  });
+
+  it('S6: floating alias surfaces its resolved target being deprecated/retiring', () => {
+    const catalog: Catalog = {
+      ...CATALOG,
+      models: [
+        ...CATALOG.models,
+        {
+          id: 'claude-opus-4-1-20250805', publisher: 'anthropic', aliases: [], family: 'opus',
+          generation: 4.1, status: 'deprecated', retiresAt: '2026-08-05',
+          sources: ['https://x'], verifiedAt: '2026-07-23',
+        },
+      ],
+      floatingAliases: [
+        { alias: 'claude-opus-4-1', publisher: 'anthropic', currently: 'claude-opus-4-1-20250805', sources: ['https://x'], verifiedAt: '2026-07-23' },
+      ],
+    };
+    const report = analyze([{ path: '.claude/settings.json', text: `{ "model": "claude-opus-4-1" }` }], catalog, RULES, OPTS);
+    const f = report.findings.find((x) => x.rule === 'LC-FLOATING')!;
+    expect(f.message).toContain('2026-08-05');
+    expect(f.message.toLowerCase()).toContain('retiring');
+  });
+
+  it('S7: price context never compares across families and never emits NaN/Infinity', () => {
+    const catalog: Catalog = {
+      version: 't',
+      models: [
+        { id: 'a', publisher: 'openai', aliases: [], family: 'famA', status: 'active', successor: 'b', pricing: { inPerMTok: 10, outPerMTok: 10 }, sources: ['x'], verifiedAt: '2026-07-23' },
+        // cross-family successor with zero pricing — must NOT emit
+        { id: 'b', publisher: 'openai', aliases: [], family: 'famB', status: 'active', pricing: { inPerMTok: 0, outPerMTok: 0 }, sources: ['x'], verifiedAt: '2026-07-23' },
+      ],
+      floatingAliases: [],
+    };
+    const report = analyze([{ path: 'x.ts', text: `"a"` }], catalog, RULES, OPTS);
+    const stale = report.findings.find((f) => f.rule === 'LC-STALE');
+    // 'a' is stale (has successor) but must carry NO price context (cross-family + zero price)
+    expect(stale?.priceContext).toBeUndefined();
+    const json = JSON.stringify(report);
+    expect(json).not.toContain('NaN');
+    expect(json).not.toContain('Infinity');
+  });
+});
+
 describe('analyze — determinism & keys', () => {
   it('produces stable finding keys independent of surrounding text', () => {
     const a = run([{ path: 'x.ts', text: `"gemini-2.5-pro"` }]);

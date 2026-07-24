@@ -256,6 +256,13 @@ export interface ModelReference {
   readonly raw: string;
   readonly publisher?: Publisher;
   readonly context: ReferenceContext;
+  /**
+   * True when the match was a complete quoted string literal (`"o1"`), false when it
+   * came from the free-text grammar. Word-like tokens (bare `o1`, tier aliases) only
+   * earn a finding when quoted — otherwise a variable named `o1` becomes a false
+   * deprecation claim (CP1 finding F1).
+   */
+  readonly viaQuotedLiteral: boolean;
 }
 
 /** A discovered invocation of a supported SDK/framework, found independently of Pass A. */

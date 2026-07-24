@@ -56,7 +56,33 @@ function isEnvFile(name: string): boolean {
 }
 
 function shouldScanFile(name: string): boolean {
+  if (isMinifiedName(name)) return false;
   return SCAN_EXTENSIONS.has(extensionOf(name)) || isEnvFile(name);
+}
+
+/**
+ * Committed build output is noise — a bundled `index-c_645qQx.js` produces findings
+ * nobody can act on (CP1: ~19% of worldmonitor's findings). Two cheap signals catch
+ * most of it: an explicit `.min.` marker, and the content-hash filenames that
+ * Vite/webpack/Rollup emit (`name-a1B2c3D4.js`).
+ */
+function isMinifiedName(name: string): boolean {
+  if (/\.min\.(js|mjs|cjs|css)$/i.test(name)) return true;
+  // hashed asset: base-<8+ base62>.ext
+  if (/-[A-Za-z0-9_-]{8,}\.(js|mjs|cjs)$/.test(name)) return true;
+  return false;
+}
+
+/** A file with an enormous single line is generated/bundled, whatever its name. */
+function looksMinifiedContent(text: string): boolean {
+  // Check only the first slice — minified files front-load a giant line.
+  const head = text.slice(0, 200_000);
+  let lineLen = 0;
+  for (let i = 0; i < head.length; i++) {
+    if (head.charCodeAt(i) === 10) lineLen = 0;
+    else if (++lineLen > 5000) return true;
+  }
+  return false;
 }
 
 /** POSIX-normalize a repo-relative path so the engine sees consistent separators. */
@@ -118,7 +144,12 @@ export function walk(root: string): WalkResult {
       }
 
       try {
-        files.push({ path: rel, text: readFileSync(abs, 'utf8') });
+        const text = readFileSync(abs, 'utf8');
+        if (looksMinifiedContent(text)) {
+          skippedLarge += 1; // count minified-content skips alongside oversize skips
+          continue;
+        }
+        files.push({ path: rel, text });
       } catch (error) {
         errors.push(`cannot read file ${rel}: ${String(error)}`);
       }

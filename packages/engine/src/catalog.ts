@@ -72,8 +72,17 @@ export function priceContextFor(
   const successor = index.entryFor(entry.successor);
   if (!successor?.pricing) return undefined;
 
-  const multiple = blended(entry.pricing) / blended(successor.pricing);
-  if (multiple < 1.25) return undefined;
+  // Same-family only (PLAN §3.5) — comparing across families smuggles in a
+  // substitutability judgment we don't make (CP1 finding S7).
+  if (entry.family && successor.family && entry.family !== successor.family) return undefined;
+
+  const successorBlended = blended(successor.pricing);
+  const entryBlended = blended(entry.pricing);
+  // Guard divide-by-zero / NaN / Infinity from missing or zero prices (S7).
+  if (!(successorBlended > 0) || !Number.isFinite(entryBlended)) return undefined;
+
+  const multiple = entryBlended / successorBlended;
+  if (!Number.isFinite(multiple) || multiple < 1.25) return undefined;
 
   return {
     currentPricing: entry.pricing,

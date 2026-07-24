@@ -90,7 +90,6 @@
     "generation": 4.1,
     "released": "2025-04-14",
     "status": "active",
-    "successor": "gpt-5-2025-08-07",
     "pricing": { "inPerMTok": 2, "outPerMTok": 8 },
     "sources": [
       "https://developers.openai.com/api/docs/changelog",
@@ -220,7 +219,6 @@
     "status": "deprecated",
     "retiresAt": "2026-10-23",
     "successor": "gpt-5.6-terra",
-    "pricing": { "inPerMTok": 4, "outPerMTok": 16 },
     "sources": [
       "https://developers.openai.com/api/docs/deprecations",
       "https://developers.openai.com/api/docs/changelog",
