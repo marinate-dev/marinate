@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Marinate — find stale & breaking AI model configs before production</title>
+<meta name="description" content="Model IDs rot. Marinate scans your repo locally and flags retired, stale, and drifting AI model pins — with sources — before they break production. Free CLI, all major providers." />
+<meta property="og:title" content="Marinate — your AI model config is a dependency that rots" />
+<meta property="og:description" content="A local, zero-credential scanner that finds retired, stale, and drifting model pins across every major provider. npx @marinate/cli check" />
+<style>
+  :root{
+    --bg:#0d0f12; --panel:#14171c; --line:#242a31; --text:#e8eaed; --dim:#9aa4af;
+    --accent:#e07a3f; --green:#4ea86b; --amber:#d9a441; --blue:#5b9bd5;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#faf9f6; --panel:#fff; --line:#e6e3dc; --text:#1a1c1f; --dim:#5c636b; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+  header{padding:64px 0 8px}
+  .logo{font-size:15px;font-weight:600;letter-spacing:.02em}
+  .logo .mark{margin-right:6px}
+  h1{font-size:clamp(30px,6vw,46px);line-height:1.12;margin:28px 0 14px;letter-spacing:-0.02em}
+  h1 .accent{color:var(--accent)}
+  .lede{font-size:clamp(17px,2.4vw,20px);color:var(--dim);max-width:60ch;margin:0 0 28px}
+  .cmd{font-family:var(--mono);font-size:15px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;display:inline-flex;gap:10px;align-items:center}
+  .cmd .prompt{color:var(--dim)}
+  .cmd .copy{margin-left:8px;color:var(--dim);font-size:12px;border:1px solid var(--line);border-radius:6px;padding:2px 8px;cursor:pointer;background:none;font-family:var(--sans)}
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  h2{font-size:22px;margin:0 0 8px;letter-spacing:-0.01em}
+  .sub{color:var(--dim);margin:0 0 22px;max-width:64ch}
+  .terminal{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:var(--mono);font-size:12.5px;line-height:1.7}
+  .terminal .bar{background:rgba(255,255,255,.03);border-bottom:1px solid var(--line);padding:9px 14px;display:flex;gap:7px}
+  .terminal .bar i{width:11px;height:11px;border-radius:50%;background:var(--line);display:block}
+  .terminal pre{margin:0;padding:16px 18px;overflow-x:auto;white-space:pre;color:var(--text)}
+  .sev-breaks{color:var(--accent);font-weight:600}
+  .sev-review{color:var(--amber)}
+  .sev-stale{color:var(--blue)}
+  .dim{color:var(--dim)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .card h3{margin:0 0 6px;font-size:16px}
+  .card p{margin:0;color:var(--dim);font-size:14.5px}
+  ul.checks{list-style:none;padding:0;margin:0}
+  ul.checks li{padding:8px 0 8px 28px;position:relative;color:var(--dim)}
+  ul.checks li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700}
+  ul.checks li b{color:var(--text);font-weight:600}
+  form{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  input[type=email]{flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 15px;color:var(--text);font-size:15px;font-family:var(--sans)}
+  button.cta{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:13px 22px;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+  .note{font-size:13px;color:var(--dim);margin-top:12px}
+  footer{padding:40px 0 60px;color:var(--dim);font-size:13px;border-top:1px solid var(--line)}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo"><span class="mark">🥩</span>Marinate</div>
+    <h1>Your AI model config is a<br><span class="accent">dependency that rots.</span></h1>
+    <p class="lede">Model IDs get retired. Newer, cheaper versions ship every few weeks. Pinned names silently drift. Nobody re-checks. Marinate scans your repo locally and tells you what's stale — with sources — before it breaks production.</p>
+    <div class="cmd"><span class="prompt">$</span><span>npx @marinate/cli check</span><button class="copy" onclick="navigator.clipboard&&navigator.clipboard.writeText('npx @marinate/cli check')">copy</button></div>
+  </header>
+
+  <section>
+    <h2>What you actually see</h2>
+    <p class="sub">One command. No API keys. Nothing about your code leaves your machine. Every finding carries the file, line, and an official source link.</p>
+    <div class="terminal">
+      <div class="bar"><i></i><i></i><i></i></div>
+<pre>🥩 marinate check — 3 files · 3 references        <span class="dim">data 2026.07.24 · cli 0.1.0</span>
+
+ <span class="sev-review">▲ BEHAVIOR</span>    .claude/settings.json:1
+      "opus[1m]" is a floating alias that currently resolves to
+      claude-opus-4-8. Pin an explicit version so the deployed model
+      can't change under you without a code edit.
+
+ <span class="sev-review">▲ REVIEW</span>      src/agent.py:1
+      claude-3-5-sonnet-20241022 is documented as retired; successor
+      is claude-sonnet-5. <span class="dim">Retirement handling varies by platform.</span>
+
+ <span class="sev-stale">● STALE</span>       src/classify.ts:1
+      gemini-2.5-pro is 1 generation behind (successor: gemini-3.0-pro).
+      Its published list rate is 1.67× the successor's.
+
+ <span class="dim">2 behavior/review · 1 stale</span></pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>Why it won't cry wolf</h2>
+    <p class="sub">A false alarm on a private repo is the one thing that gets a tool uninstalled. So caution is built in, not hoped for:</p>
+    <ul class="checks">
+      <li>A model named in a <b>README or comment</b> is never a build-failing error — only real config is.</li>
+      <li>A <b>variable named <code>o1</code></b> is never mistaken for the o1 model. Only quoted pins count.</li>
+      <li>Every finding links an <b>official source + date</b> — verify any claim in seconds.</li>
+      <li>The catalog is built by <b>fetching live docs, never memory</b> — the exact bug this tool exists to catch.</li>
+      <li>This first version <b>structurally cannot fail your build with a false positive</b> — worst case is a warning.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Why a provider can't build this</h2>
+    <p class="sub">Anthropic will never tell you to move a call site to Gemini. OpenAI will never recommend Claude. Marinate is neutral — its only job is keeping your config current, wherever the frontier is this month. Anthropic · OpenAI · Google · xAI · Meta · Mistral.</p>
+    <div class="grid">
+      <div class="card"><h3>Free, forever</h3><p>The CLI and release alerts. Local, zero-credential, one command. For solo devs and small projects.</p></div>
+      <div class="card"><h3>Teams (soon)</h3><p>Fleet view across repos, automated upgrade PRs, spend attribution — for teams with a real AI bill.</p></div>
+    </div>
+  </section>
+
+  <section id="alerts">
+    <h2>Get release alerts</h2>
+    <p class="sub">Be notified when a provider change affects one of your pinned models. No spam, unsubscribe anytime.</p>
+    <!-- TODO(cam): point action= at the email backend (Resend audience / Supabase / Formspree). -->
+    <form action="#" method="post" onsubmit="this.querySelector('.note-ok').style.display='block';return false;">
+      <input type="email" name="email" placeholder="you@company.com" required />
+      <button class="cta" type="submit">Notify me</button>
+      <div class="note note-ok" style="display:none;width:100%">Thanks — you're on the list. (Backend wiring pending.)</div>
+    </form>
+    <p class="note">Building now: Anthropic + OpenAI compat rules, all-provider staleness catalog.</p>
+  </section>
+
+  <footer>
+    🥩 Marinate — model config, with receipts.
+    &nbsp;·&nbsp; <a href="https://github.com/marinate-dev">GitHub</a>
+    &nbsp;·&nbsp; runs locally, uploads nothing.
+  </footer>
+
+</div>
+</body>
+</html>
