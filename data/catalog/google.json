@@ -1,0 +1,153 @@
+[
+  {
+    "id": "gemini-3.6-flash",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-3",
+    "generation": 3.6,
+    "released": "2026-07-21",
+    "status": "active",
+    "pricing": { "inPerMTok": 1.5, "outPerMTok": 7.5 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/models",
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gemini-3.5-flash",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-3",
+    "generation": 3.5,
+    "released": "2026-05-19",
+    "status": "active",
+    "pricing": { "inPerMTok": 1.5, "outPerMTok": 9 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/models",
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gemini-3.5-flash-lite",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-3",
+    "generation": 3.5,
+    "released": "2026-07-21",
+    "status": "active",
+    "pricing": { "inPerMTok": 0.3, "outPerMTok": 2.5 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/models",
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gemini-3.1-flash-lite",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-3",
+    "generation": 3.1,
+    "released": "2026-05-07",
+    "status": "deprecated",
+    "retiresAt": "2027-05-07",
+    "successor": "gemini-3.5-flash-lite",
+    "pricing": { "inPerMTok": 0.25, "outPerMTok": 1.5 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/models",
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gemini-2.5-pro",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-2.5",
+    "generation": 2.5,
+    "released": "2025-06-17",
+    "status": "deprecated",
+    "retiresAt": "2026-10-16",
+    "successor": "gemini-3.1-pro-preview",
+    "pricing": { "inPerMTok": 1.25, "outPerMTok": 10 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gemini-2.5-flash",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-2.5",
+    "generation": 2.5,
+    "released": "2025-06-17",
+    "status": "deprecated",
+    "retiresAt": "2026-10-16",
+    "successor": "gemini-3.6-flash",
+    "pricing": { "inPerMTok": 0.3, "outPerMTok": 2.5 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/models",
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gemini-2.5-flash-lite",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-2.5",
+    "generation": 2.5,
+    "released": "2025-07-22",
+    "status": "deprecated",
+    "retiresAt": "2026-10-16",
+    "successor": "gemini-3.1-flash-lite",
+    "pricing": { "inPerMTok": 0.1, "outPerMTok": 0.4 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/models",
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gemini-2.0-flash",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-2.0",
+    "generation": 2,
+    "released": "2025-02-05",
+    "status": "retired",
+    "successor": "gemini-3.6-flash",
+    "pricing": { "inPerMTok": 0.1, "outPerMTok": 0.4 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gemini-2.0-flash-lite",
+    "publisher": "google",
+    "aliases": [],
+    "family": "gemini-2.0",
+    "generation": 2,
+    "released": "2025-02-25",
+    "status": "retired",
+    "successor": "gemini-3.1-flash-lite",
+    "pricing": { "inPerMTok": 0.075, "outPerMTok": 0.3 },
+    "sources": [
+      "https://ai.google.dev/gemini-api/docs/pricing",
+      "https://ai.google.dev/gemini-api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  }
+]

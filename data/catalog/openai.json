@@ -1,0 +1,277 @@
+[
+  {
+    "id": "gpt-5.6-sol",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "gpt-5",
+    "generation": 5.6,
+    "released": "2026-07-09",
+    "status": "active",
+    "pricing": { "inPerMTok": 5, "outPerMTok": 30 },
+    "sources": [
+      "https://developers.openai.com/api/docs/models",
+      "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "https://developers.openai.com/api/docs/pricing",
+      "https://developers.openai.com/api/docs/changelog"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-5.6-terra",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "gpt-5",
+    "generation": 5.6,
+    "released": "2026-07-09",
+    "status": "active",
+    "pricing": { "inPerMTok": 2.5, "outPerMTok": 15 },
+    "sources": [
+      "https://developers.openai.com/api/docs/models",
+      "https://developers.openai.com/api/docs/pricing",
+      "https://developers.openai.com/api/docs/changelog"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-5.6-luna",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "gpt-5",
+    "generation": 5.6,
+    "released": "2026-07-09",
+    "status": "active",
+    "pricing": { "inPerMTok": 1, "outPerMTok": 6 },
+    "sources": [
+      "https://developers.openai.com/api/docs/models",
+      "https://developers.openai.com/api/docs/pricing",
+      "https://developers.openai.com/api/docs/changelog"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-5.5",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "gpt-5",
+    "generation": 5.5,
+    "released": "2026-04-24",
+    "status": "active",
+    "pricing": { "inPerMTok": 5, "outPerMTok": 30 },
+    "sources": [
+      "https://developers.openai.com/api/docs/pricing",
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/gpt-5.5",
+      "https://developers.openai.com/api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-5.4",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "gpt-5",
+    "generation": 5.4,
+    "released": "2026-03-05",
+    "status": "active",
+    "pricing": { "inPerMTok": 2.5, "outPerMTok": 15 },
+    "sources": [
+      "https://developers.openai.com/api/docs/pricing",
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "https://developers.openai.com/api/docs/deprecations"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-4.1",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "gpt-4.1",
+    "generation": 4.1,
+    "released": "2025-04-14",
+    "status": "active",
+    "successor": "gpt-5-2025-08-07",
+    "pricing": { "inPerMTok": 2, "outPerMTok": 8 },
+    "sources": [
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/gpt-4.1"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-4o",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "gpt-4o",
+    "released": "2024-05-13",
+    "status": "active",
+    "pricing": { "inPerMTok": 2.5, "outPerMTok": 10 },
+    "sources": [
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/gpt-4o"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-4o-mini",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "gpt-4o",
+    "released": "2024-07-18",
+    "status": "active",
+    "pricing": { "inPerMTok": 0.15, "outPerMTok": 0.6 },
+    "sources": [
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/gpt-4o-mini"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-5-2025-08-07",
+    "publisher": "openai",
+    "aliases": ["gpt-5"],
+    "family": "gpt-5",
+    "generation": 5,
+    "released": "2025-08-07",
+    "status": "deprecated",
+    "retiresAt": "2026-12-11",
+    "successor": "gpt-5.6-sol",
+    "pricing": { "inPerMTok": 1.25, "outPerMTok": 10 },
+    "sources": [
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/gpt-5"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-4-turbo",
+    "publisher": "openai",
+    "aliases": ["gpt-4-turbo-2024-04-09", "gpt-4-turbo-completions"],
+    "family": "gpt-4-turbo",
+    "released": "2023-11-06",
+    "status": "deprecated",
+    "retiresAt": "2026-10-23",
+    "pricing": { "inPerMTok": 10, "outPerMTok": 30 },
+    "sources": [
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/gpt-4-turbo"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "gpt-3.5-turbo-0125",
+    "publisher": "openai",
+    "aliases": ["gpt-3.5-turbo", "gpt-3.5-turbo-completions"],
+    "family": "gpt-3.5-turbo",
+    "generation": 3.5,
+    "released": "2024-02-01",
+    "status": "deprecated",
+    "retiresAt": "2026-10-23",
+    "pricing": { "inPerMTok": 0.5, "outPerMTok": 1.5 },
+    "sources": [
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/gpt-3.5-turbo"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "o1-2024-12-17",
+    "publisher": "openai",
+    "aliases": ["o1"],
+    "family": "o1",
+    "generation": 1,
+    "released": "2024-12-17",
+    "status": "deprecated",
+    "retiresAt": "2026-10-23",
+    "successor": "gpt-5.6-sol",
+    "pricing": { "inPerMTok": 15, "outPerMTok": 60 },
+    "sources": [
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/o1"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "o3-mini-2025-01-31",
+    "publisher": "openai",
+    "aliases": ["o3-mini"],
+    "family": "o3",
+    "generation": 3,
+    "released": "2025-01-31",
+    "status": "deprecated",
+    "retiresAt": "2026-10-23",
+    "successor": "gpt-5.6-sol",
+    "sources": [
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://developers.openai.com/api/docs/changelog"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "o4-mini-2025-04-16",
+    "publisher": "openai",
+    "aliases": ["o4-mini"],
+    "family": "o4",
+    "released": "2025-04-16",
+    "status": "deprecated",
+    "retiresAt": "2026-10-23",
+    "successor": "gpt-5.6-terra",
+    "pricing": { "inPerMTok": 4, "outPerMTok": 16 },
+    "sources": [
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/pricing"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "o3-2025-04-16",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "o3",
+    "generation": 3,
+    "released": "2025-04-16",
+    "status": "deprecated",
+    "retiresAt": "2026-12-11",
+    "successor": "gpt-5.6-sol",
+    "pricing": { "inPerMTok": 2, "outPerMTok": 8 },
+    "sources": [
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://developers.openai.com/api/docs/changelog",
+      "https://developers.openai.com/api/docs/models/o3"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "o1-preview",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "o1",
+    "released": "2024-09-12",
+    "status": "retired",
+    "successor": "o3-2025-04-16",
+    "sources": [
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://developers.openai.com/api/docs/changelog"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "o1-mini",
+    "publisher": "openai",
+    "aliases": [],
+    "family": "o1",
+    "released": "2024-09-12",
+    "status": "retired",
+    "successor": "o4-mini-2025-04-16",
+    "sources": [
+      "https://developers.openai.com/api/docs/deprecations",
+      "https://developers.openai.com/api/docs/changelog"
+    ],
+    "verifiedAt": "2026-07-23"
+  }
+]

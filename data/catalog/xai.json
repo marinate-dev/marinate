@@ -1,0 +1,138 @@
+[
+  {
+    "id": "grok-4.5",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4",
+    "generation": 4.5,
+    "released": "2026-07",
+    "status": "active",
+    "pricing": { "inPerMTok": 2, "outPerMTok": 6 },
+    "sources": [
+      "https://docs.x.ai/developers/models",
+      "https://docs.x.ai/developers/release-notes"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-4.3",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4",
+    "generation": 4.3,
+    "status": "active",
+    "pricing": { "inPerMTok": 1.25, "outPerMTok": 2.5 },
+    "sources": [
+      "https://docs.x.ai/developers/models",
+      "https://docs.x.ai/developers/migration/may-15-retirement"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-build-0.1",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-build",
+    "generation": 0.1,
+    "released": "2026-05",
+    "status": "active",
+    "pricing": { "inPerMTok": 1, "outPerMTok": 2 },
+    "sources": [
+      "https://docs.x.ai/developers/models",
+      "https://docs.x.ai/developers/release-notes"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-3",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-3",
+    "generation": 3,
+    "released": "2025-04",
+    "status": "retired",
+    "successor": "grok-4.3",
+    "sources": [
+      "https://docs.x.ai/developers/migration/may-15-retirement",
+      "https://docs.x.ai/developers/release-notes"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-4-0709",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4",
+    "generation": 4,
+    "released": "2025-07-09",
+    "status": "retired",
+    "successor": "grok-4.3",
+    "sources": [
+      "https://docs.x.ai/developers/migration/may-15-retirement",
+      "https://docs.x.ai/developers/release-notes"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-4-fast-reasoning",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4-fast",
+    "status": "retired",
+    "successor": "grok-4.3",
+    "sources": [
+      "https://docs.x.ai/developers/migration/may-15-retirement"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-4-fast-non-reasoning",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4-fast",
+    "status": "retired",
+    "successor": "grok-4.3",
+    "sources": [
+      "https://docs.x.ai/developers/migration/may-15-retirement"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-4-1-fast-reasoning",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4.1-fast",
+    "generation": 4.1,
+    "status": "retired",
+    "successor": "grok-4.3",
+    "sources": [
+      "https://docs.x.ai/developers/migration/may-15-retirement"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-4-1-fast-non-reasoning",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4.1-fast",
+    "generation": 4.1,
+    "status": "retired",
+    "successor": "grok-4.3",
+    "sources": [
+      "https://docs.x.ai/developers/migration/may-15-retirement"
+    ],
+    "verifiedAt": "2026-07-23"
+  },
+  {
+    "id": "grok-code-fast-1",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-code",
+    "status": "retired",
+    "successor": "grok-build-0.1",
+    "sources": [
+      "https://docs.x.ai/developers/migration/may-15-retirement"
+    ],
+    "verifiedAt": "2026-07-23"
+  }
+]
