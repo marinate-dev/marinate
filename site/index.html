@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Marinate — find stale & breaking AI model configs before production</title>
-<meta name="description" content="Model IDs rot. Marinate scans your repo locally and flags retired, stale, and drifting AI model pins — with sources — before they break production. Free CLI, all major providers." />
+<meta name="description" content="Model IDs rot. Marinate scans your repo locally and flags retired, stale, and drifting AI model pins — with sources — before they break production. Free CLI — Anthropic, OpenAI, Google, xAI, Mistral." />
 <meta property="og:title" content="Marinate — your AI model config is a dependency that rots" />
-<meta property="og:description" content="A local, zero-credential scanner that finds retired, stale, and drifting model pins across every major provider. npx marinate-audit check" />
+<meta property="og:description" content="A local, zero-credential scanner that finds retired, stale, and drifting model pins across Anthropic, OpenAI, Google, xAI and Mistral. npx marinate-audit check" />
 <style>
   :root{
     --bg:#0d0f12; --panel:#14171c; --line:#242a31; --text:#e8eaed; --dim:#9aa4af;
@@ -73,20 +73,25 @@
     <p class="sub">One command. No API keys. Nothing about your code leaves your machine. Every finding carries the file, line, and an official source link.</p>
     <div class="terminal">
       <div class="bar"><i></i><i></i><i></i></div>
-<pre>🥩 marinate check — 3 files · 3 references        <span class="dim">data 2026.07.24 · cli 0.1.0</span>
+<pre>🥩 marinate check — 3 files · 0 call sites · 3 references        <span class="dim">data 2026.07.24.4 · cli 0.1.0</span>
 
  <span class="sev-review">▲ BEHAVIOR</span>    .claude/settings.json:1
       "opus[1m]" is a floating alias that currently resolves to
-      claude-opus-4-8. Pin an explicit version so the deployed model
+      claude-opus-5. It last re-pointed on 2026-07-24 (previously
+      claude-opus-4-8). Pin an explicit version so the deployed model
       can't change under you without a code edit.
+      <span class="dim">fix: Replace "opus" with an explicit version such as claude-opus-5.
+      source: code.claude.com/docs/en/model-config · verified 2026-07-24</span>
 
  <span class="sev-review">▲ REVIEW</span>      src/agent.py:1
-      claude-3-5-sonnet-20241022 is documented as retired; successor
-      is claude-sonnet-5. <span class="dim">Retirement handling varies by platform.</span>
+      claude-3-5-sonnet-20241022 is documented as retired; documented
+      successor is claude-sonnet-4-6.
+      <span class="dim">source: platform.claude.com/../model-deprecations · verified 2026-07-23</span>
 
  <span class="sev-stale">● STALE</span>       src/classify.ts:1
-      gemini-2.5-pro is 1 generation behind (successor: gemini-3.0-pro).
-      Its published list rate is 1.67× the successor's.
+      gemini-2.5-pro is documented as deprecated. It is scheduled to
+      retire on 2026-10-16. Documented successor: gemini-3.1-pro-preview.
+      <span class="dim">source: ai.google.dev/gemini-api/docs/pricing · verified 2026-07-23</span>
 
  <span class="dim">2 behavior/review · 1 stale</span></pre>
     </div>
@@ -133,7 +138,7 @@
     </form>
     <script>
       (function () {
-        var FORM_ENDPOINT = ""; // <-- set this before deploying
+        var FORM_ENDPOINT = "/api/subscribe";
 
         var form = document.getElementById('alerts-form');
         var input = form.querySelector('input[name=email]');
@@ -142,13 +147,6 @@
 
         function say(text) { msg.textContent = text; msg.style.display = 'block'; }
 
-        if (!FORM_ENDPOINT) {
-          input.disabled = true;
-          button.disabled = true;
-          button.textContent = 'Opening at launch';
-          say('Release alerts open when the alpha ships. Watch the repo in the meantime.');
-          return;
-        }
 
         form.addEventListener('submit', function (event) {
           event.preventDefault();
@@ -170,11 +168,15 @@
               button.textContent = 'Done';
               say("You're on the list.");
             })
-            .catch(function () {
-              // Say what failed and what to do instead — never swallow it into a success state.
+            .catch(function (err) {
+              // Say what failed and what to do instead — never swallow it into a success
+              // state. 503 means the function is deployed but has no Resend credentials,
+              // which is an operator problem, not something the visitor can retry into.
               button.disabled = false;
               button.textContent = 'Notify me';
-              say("That didn't go through. Try again, or open an issue on the repo.");
+              say(String(err.message) === 'HTTP 503'
+                ? "Signup isn't live yet — watch the repo and it'll open shortly."
+                : "That didn't go through. Try again, or open an issue on the repo.");
             });
         });
       })();
