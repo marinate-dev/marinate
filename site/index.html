@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Marinate — find stale & breaking AI model configs before production</title>
-<meta name="description" content="Model IDs rot. Marinate scans your repo locally and flags retired, stale, and drifting AI model pins — with sources — before they break production. Free CLI — Anthropic, OpenAI, Google, xAI, Mistral." />
+<meta name="description" content="Model IDs rot. Marinate flags retired, stale and drifting AI model pins — with sources — before they break production. Offline CLI: the catalog ships in the package, the scan makes no network calls. Anthropic, OpenAI, Google, xAI, Mistral." />
 <meta property="og:title" content="Marinate — your AI model config is a dependency that rots" />
-<meta property="og:description" content="A local, zero-credential scanner that finds retired, stale, and drifting model pins across Anthropic, OpenAI, Google, xAI and Mistral. npx marinate-audit check" />
+<meta property="og:description" content="An offline, zero-credential scanner for retired, stale and drifting AI model pins. Catalog bundled in the package; the scan opens no socket. npx marinate-audit check" />
 <style>
   :root{
     --bg:#0d0f12; --panel:#14171c; --line:#242a31; --text:#e8eaed; --dim:#9aa4af;
@@ -98,7 +98,7 @@
 
   <section>
     <h2>What you actually see</h2>
-    <p class="sub">One command. No API keys. Nothing about your code leaves your machine. Every finding carries the file, line, and an official source link.</p>
+    <p class="sub">One command. No API key, no account, no signup. The catalog ships <em>inside</em> the package, so the scan itself makes no network calls at all. Every finding carries the file, line, and an official source link.</p>
     <div class="terminal">
       <div class="bar"><i></i><i></i><i></i></div>
 <pre>🥩 marinate check — 3 files · 0 call sites · 3 references        <span class="dim">data 2026.07.24.4 · cli 0.1.0</span>
@@ -123,6 +123,22 @@
 
  <span class="dim">2 behavior/review · 1 stale</span></pre>
     </div>
+  </section>
+
+  <section id="offline">
+    <h2>It doesn't phone home</h2>
+    <p class="sub">Marinate is a linter, not a service. There is no backend, no account, and nothing to opt out of.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>The catalog is bundled</h3>
+        <p>Model lifecycle data is compiled into the package at build time and versioned with it — the report prints which catalog it used. There is no registry to call and no key to hold.</p>
+      </div>
+      <div class="card">
+        <h3>The scan opens no socket</h3>
+        <p>No HTTP, no DNS, no <code>fetch</code>. A test in CI reads the CLI's own source and fails the build if any networking module or fetch call appears in it.</p>
+      </div>
+    </div>
+    <p class="note"><b>The one exception, stated plainly:</b> <code>npx</code> downloads the package from the npm registry, exactly like installing anything else. After that the tool is airtight — your source, prompts, file paths, credentials and results never go anywhere, because there is no code path that could send them.</p>
   </section>
 
   <section id="silent">
@@ -175,7 +191,8 @@
       <li>A model named in a <b>README or comment</b> is never a build-failing error — only real config is.</li>
       <li>A <b>variable named <code>o1</code></b> is never mistaken for the o1 model. Only quoted pins count.</li>
       <li>Every finding links an <b>official source + date</b> — verify any claim in seconds.</li>
-      <li>The catalog is built by <b>fetching live docs, never memory</b> — the exact bug this tool exists to catch.</li>
+      <li>The catalog is compiled from provider documentation <b>by us, before each release</b> — never from a model's memory, which is the exact bug this tool exists to catch.</li>
+      <li>Your scan is <b>offline</b>. The catalog ships inside the package, so the CLI opens no socket while it runs — asserted by a test in CI, not promised in a README.</li>
       <li>This first version <b>structurally cannot fail your build with a false positive</b> — worst case is a warning.</li>
     </ul>
   </section>
@@ -258,7 +275,7 @@
   <footer>
     🥩 Marinate — model config, with receipts.
     &nbsp;·&nbsp; <a href="https://github.com/marinate-dev">GitHub</a>
-    &nbsp;·&nbsp; runs locally, uploads nothing.
+    &nbsp;·&nbsp; the scan runs offline — no key, no account, no telemetry.
   </footer>
 
 </div>
