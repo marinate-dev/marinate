@@ -15,7 +15,18 @@
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
   @media (prefers-color-scheme: light){
-    :root{ --bg:#faf9f6; --panel:#fff; --line:#e6e3dc; --text:#1a1c1f; --dim:#5c636b; }
+    /* The accent and severity hues are tuned for a near-black ground. Carried onto
+       white unchanged they fail WCAG AA badly — measured on #fff: amber 2.25:1,
+       accent 2.99:1, against the 4.5:1 small-text threshold. The severity tags and
+       the ledger's "what happens" line are 10.5-12.5px, so this is not a large-text
+       exemption. Same hue, enough darkness to be legible. */
+    :root{
+      --bg:#faf9f6; --panel:#fff; --line:#e6e3dc; --text:#1a1c1f; --dim:#5c636b;
+      --accent:#b4491a;  /* 5.37:1 on white */
+      --amber:#8a6100;   /* 5.54:1 */
+      --green:#1f7a45;   /* 5.35:1 */
+      --blue:#1f6fb0;    /* 5.30:1 */
+    }
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -53,6 +64,23 @@
   input[type=email]{flex:1;min-width:220px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 15px;color:var(--text);font-size:15px;font-family:var(--sans)}
   button.cta{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:13px 22px;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--sans)}
   .note{font-size:13px;color:var(--dim);margin-top:12px}
+  /* Silent-failure cases. Every claim on these carries a first-party quote. */
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+  .case h3{margin:0 0 4px;font-size:16.5px;letter-spacing:-.01em}
+  .case .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:9px}
+  .case p{margin:0 0 12px;color:var(--dim);font-size:14.5px}
+  .case p b{color:var(--text);font-weight:600}
+  .case .quote{border-left:2px solid var(--line);padding:2px 0 2px 14px;margin:0 0 12px;color:var(--text);font-size:14px}
+  /* Source URLs are single unbreakable tokens: measured 415px against a 306px content
+     box at a 390px viewport, which scrolls the whole page sideways on a phone.
+     `anywhere` lets them break mid-path; they are references, not link text. */
+  .case .quote cite{display:block;margin-top:5px;font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--dim);overflow-wrap:anywhere}
+  .case .ledger dd{overflow-wrap:anywhere}
+  .case .ledger{font-family:var(--mono);font-size:12.5px;border-top:1px solid var(--line);padding-top:12px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px}
+  .case .ledger dt{color:var(--dim);white-space:nowrap}
+  .case .ledger dd{margin:0;color:var(--text)}
+  .case .ledger dd.bad{color:var(--accent)}
+  @media(max-width:560px){.case .ledger{grid-template-columns:1fr;gap:2px}.case .ledger dt{margin-top:8px}}
   footer{padding:40px 0 60px;color:var(--dim);font-size:13px;border-top:1px solid var(--line)}
   a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
@@ -95,6 +123,49 @@
 
  <span class="dim">2 behavior/review · 1 stale</span></pre>
     </div>
+  </section>
+
+  <section id="silent">
+    <h2>The failures that don't raise an error</h2>
+    <p class="sub">A retired model at least fails loudly. These three don't fail at all — your code runs, returns a normal response, and quietly does something other than what you configured. Every claim below is the provider's own wording, checked against the live page on 2026-07-25.</p>
+
+    <div class="case">
+      <span class="tag">Case 1 · caching turns itself off</span>
+      <h3>Your prompt cache stopped working and nothing said so</h3>
+      <p>Minimum cacheable prompt length is set per model — and it is <b>not monotonic across generations</b>. Claude Opus 4.6 requires 4,096 tokens. Opus 5 requires 512. A 3,000-token cached prefix works on one and is ignored by the other.</p>
+      <blockquote class="quote">“Any requests to cache fewer than this number of tokens will be processed without caching, and <b>no error is returned</b>.”<cite>platform.claude.com/docs/en/build-with-claude/prompt-caching</cite></blockquote>
+      <dl class="ledger">
+        <dt>you wrote</dt><dd>cache_control on a ~3,000-token system prompt</dd>
+        <dt>you assumed</dt><dd>cache reads at 0.1× input rate</dd>
+        <dt>what happens</dt><dd class="bad">full input rate, every request, no warning</dd>
+      </dl>
+    </div>
+
+    <div class="case">
+      <span class="tag">Case 2 · the tokenizer changed</span>
+      <h3>The same text became 30% more tokens</h3>
+      <p>Claude 4.7 introduced a new tokenizer. Nothing in your request changed, but every count derived from the old one — a tuned <code>max_tokens</code>, a context budget, a cost model — is now wrong in the same direction.</p>
+      <blockquote class="quote">“Claude 4.7 and later models … use a newer tokenizer … This tokenizer produces <b>approximately 30% more tokens for the same text</b>.”<cite>platform.claude.com/docs/en/about-claude/pricing</cite></blockquote>
+      <dl class="ledger">
+        <dt>you wrote</dt><dd>max_tokens sized against a pre-4.7 model</dd>
+        <dt>you assumed</dt><dd>the same prompt costs the same</dd>
+        <dt>what happens</dt><dd class="bad">responses truncate; spend drifts up ~30%</dd>
+      </dl>
+    </div>
+
+    <div class="case">
+      <span class="tag">Case 3 · the name moved</span>
+      <h3>Your config points at a different model than it did yesterday</h3>
+      <p>Tier aliases re-point when a generation ships. On 2026-07-24 the <code>opus</code> alias moved from Claude Opus 4.8 to Claude Opus 5. Same config file, same deploy, different model — with different cache minimums and different behaviour.</p>
+      <blockquote class="quote">“Before v2.1.219, <code>opus</code> resolved to Opus 4.8 on the Anthropic API.”<cite>code.claude.com/docs/en/model-config</cite></blockquote>
+      <dl class="ledger">
+        <dt>you wrote</dt><dd>"model": "opus[1m]"</dd>
+        <dt>you assumed</dt><dd>a pin</dd>
+        <dt>what happens</dt><dd class="bad">the model changes under you, with no code edit</dd>
+      </dl>
+    </div>
+
+    <p class="note">And when a model does finally go: <b>“Deprecated models are likely to be less reliable than active models.”</b> — Anthropic, model-deprecations. Nine OpenAI models shut down on 2026-07-23. Marinate reads the same pages these quotes come from, every day, and tells you which of them your repo is standing on.</p>
   </section>
 
   <section>
