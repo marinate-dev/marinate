@@ -19,7 +19,7 @@ import { loadConfig, expiredSuppressions } from './config.js';
 import { renderReport, shouldFail } from './render.js';
 import { showPrivacyNoticeOnce } from './banner.js';
 
-const CLI_VERSION = '0.1.0';
+const CLI_VERSION = '0.1.1';
 
 const FAIL_ON_VALUES: readonly FailOn[] = ['breaks', 'upgrade', 'behavior', 'stale', 'none'];
 

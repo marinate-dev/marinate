@@ -1,6 +1,6 @@
 {
   "name": "marinate-audit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Find retired, stale, and upgrade-breaking AI model configurations before they reach production. Local, zero-credential, all major providers.",
   "keywords": [
