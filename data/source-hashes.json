@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-24",
+  "updatedAt": "2026-07-26",
   "sources": {
     "https://code.claude.com/docs/en/model-config": {
       "hash": "76a206f6ecbba509",
@@ -163,8 +163,8 @@
       ]
     },
     "https://platform.claude.com/docs/en/about-claude/models/migration-guide": {
-      "hash": "f742e81d3d2e8e0f",
-      "length": 112957,
+      "hash": "351f686d56e9052b",
+      "length": 113254,
       "providers": [
         "anthropic"
       ]
@@ -184,15 +184,15 @@
       ]
     },
     "https://platform.claude.com/docs/en/about-claude/pricing": {
-      "hash": "415b40523fad9818",
-      "length": 30511,
+      "hash": "417a354fabcf42fa",
+      "length": 30356,
       "providers": [
         "anthropic"
       ]
     },
     "https://platform.claude.com/docs/en/build-with-claude/effort": {
-      "hash": "c6211c53c9d1b70b",
-      "length": 18724,
+      "hash": "33937009c688af5e",
+      "length": 18087,
       "providers": [
         "anthropic"
       ]
@@ -205,8 +205,8 @@
       ]
     },
     "https://platform.claude.com/docs/en/build-with-claude/prompt-caching": {
-      "hash": "f6b389464b932b51",
-      "length": 112974,
+      "hash": "8ac50698df9b5325",
+      "length": 112874,
       "providers": [
         "anthropic"
       ]
@@ -219,8 +219,8 @@
       ]
     },
     "https://platform.claude.com/docs/en/release-notes/api": {
-      "hash": "80adb5985d169344",
-      "length": 73239,
+      "hash": "3eb8829546129a3a",
+      "length": 73842,
       "providers": [
         "anthropic"
       ]
