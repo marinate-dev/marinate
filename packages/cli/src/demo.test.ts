@@ -73,7 +73,7 @@ describe('canonical demo output (CI fails on drift)', () => {
             source: https://platform.claude.com/docs/en/about-claude/model-deprecations · verified 2026-07-24
 
        ● STALE       src/classify.ts:1
-            gemini-2.5-pro is 1 generation behind (documented successor: gemini-3.0-pro). At a 3:1 input/output assumption, its published list rate is 1.67× gemini-3.0-pro's.
+            gemini-2.5-pro is 1 generation behind (documented successor: gemini-3.0-pro). At a 3:1 input/output assumption, its published list rate is 1.67× gemini-3.0-pro's — the documented successor is cheaper per token.
             source: https://ai.google.dev/gemini-api/docs/pricing · verified 2026-07-24
 
        2 behavior/review · 1 stale

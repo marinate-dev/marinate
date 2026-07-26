@@ -289,13 +289,28 @@ export interface CallSite {
 // Findings & report
 // ---------------------------------------------------------------------------
 
-/** Same-family published-rate comparison. Never a claim about what anyone pays. */
+/**
+ * Published-rate comparison along a documented successor edge. Never a claim about
+ * what anyone actually pays — usage, caching and discounts are unknown to us.
+ *
+ * Reported in BOTH directions on purpose. Measured 2026-07-25 across the shipped
+ * catalog: of 27 successor pairs with pricing on both sides, only 5 get cheaper on
+ * upgrade and 19 get MORE expensive — `gemini-2.0-flash` → `gemini-3.6-flash` is 16×.
+ * A tool that only mentions price when upgrading happens to save money is selling,
+ * not reporting, and the omission would be doing the most work exactly where a
+ * migration is about to blow up someone's bill.
+ */
 export interface PriceContext {
   readonly currentPricing: Pricing;
   readonly successorPricing: Pricing;
   readonly successorId: string;
   /** Blended (3·in + 1·out)/4 ratio. The 3:1 assumption is always stated in the message. */
   readonly blendedMultiple: number;
+  /**
+   * `successor_cheaper` — moving off this pin lowers the published rate.
+   * `successor_pricier` — the documented successor costs more; budget before migrating.
+   */
+  readonly direction: 'successor_cheaper' | 'successor_pricier';
 }
 
 export interface Finding {

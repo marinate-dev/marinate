@@ -72,23 +72,36 @@ export function priceContextFor(
   const successor = index.entryFor(entry.successor);
   if (!successor?.pricing) return undefined;
 
-  // Same-family only (PLAN §3.5) — comparing across families smuggles in a
-  // substitutability judgment we don't make (CP1 finding S7).
-  if (entry.family && successor.family && entry.family !== successor.family) return undefined;
-
+  // The comparison is scoped by the DOCUMENTED SUCCESSOR EDGE, not by family-string
+  // equality. CP1 finding S7 added a same-family guard to stop us smuggling in a
+  // substitutability judgment — but `successor` already *is* the publisher's own
+  // substitutability claim, and the guard was redundant with it while doing real
+  // damage: `family` is modelled as generation+tier (`gemini-2.5` vs `gemini-3`), so
+  // it blocked 14 of 27 priced pairs, including every cross-generation comparison —
+  // i.e. exactly the case anyone cares about. S7's actual concern (no unsourced
+  // cross-tier claims) is preserved: we only ever compare a model to the replacement
+  // its own publisher named.
   const successorBlended = blended(successor.pricing);
   const entryBlended = blended(entry.pricing);
   // Guard divide-by-zero / NaN / Infinity from missing or zero prices (S7).
   if (!(successorBlended > 0) || !Number.isFinite(entryBlended)) return undefined;
 
   const multiple = entryBlended / successorBlended;
-  if (!Number.isFinite(multiple) || multiple < 1.25) return undefined;
+  if (!Number.isFinite(multiple)) return undefined;
+
+  // Two thresholds, both meaningful, with a deliberate dead band around parity so we
+  // stay quiet on rounding noise. >=1.25 means upgrading lowers the rate; <=0.8 means
+  // the documented successor costs more and a migration needs budgeting first.
+  const direction =
+    multiple >= 1.25 ? 'successor_cheaper' : multiple <= 0.8 ? 'successor_pricier' : undefined;
+  if (!direction) return undefined;
 
   return {
     currentPricing: entry.pricing,
     successorPricing: successor.pricing,
     successorId: successor.id,
     blendedMultiple: Math.round(multiple * 100) / 100,
+    direction,
   };
 }
 
