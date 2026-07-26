@@ -75,4 +75,37 @@ describe('detectReferences', () => {
     });
     expect(refs).toHaveLength(2);
   });
+
+  /**
+   * Regression: the grammar path used to hardcode viaQuotedLiteral=false, so a real
+   * quoted pin in source code could never reach BEHAVIOR CHANGE severity and
+   * `--fail-on behavior` could only ever catch floating aliases in JSON/YAML.
+   * Found by running against workshop's engine/model_registry.py:114, where an alias
+   * whose target retires in 11 days was reported at the lowest tier.
+   */
+  describe('viaQuotedLiteral', () => {
+    const raw = (text: string, want: string) =>
+      detectReferences({ path: 'x.py', text }).find((r) => r.raw === want)!;
+
+    it('is true for a double-quoted pin (Python dict key, TS constant)', () => {
+      expect(raw('"claude-opus-4-1": {}', 'claude-opus-4-1').viaQuotedLiteral).toBe(true);
+    });
+
+    it('is true for single quotes and backticks', () => {
+      expect(raw("model = 'gpt-4o'", 'gpt-4o').viaQuotedLiteral).toBe(true);
+      expect(raw('const m = `gpt-4o`;', 'gpt-4o').viaQuotedLiteral).toBe(true);
+    });
+
+    it('is FALSE for a model named inside a longer string', () => {
+      expect(raw('"we moved off gpt-4o last year"', 'gpt-4o').viaQuotedLiteral).toBe(false);
+    });
+
+    it('is FALSE in a bare comment', () => {
+      expect(raw('# gpt-4o got retired and 404-ed', 'gpt-4o').viaQuotedLiteral).toBe(false);
+    });
+
+    it('is FALSE when quotes do not match (opening only)', () => {
+      expect(raw('"gpt-4o + rest', 'gpt-4o').viaQuotedLiteral).toBe(false);
+    });
+  });
 });

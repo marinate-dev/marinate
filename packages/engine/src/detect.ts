@@ -115,6 +115,29 @@ function lineFor(starts: readonly number[], index: number): number {
  * odd string); we keep the first match at each start offset to avoid duplicates,
  * preferring earlier grammars in declaration order.
  */
+/**
+ * True when the match is EXACTLY a quoted string literal — `"claude-opus-4-1"` — and
+ * not merely a model name mentioned inside a longer string or a comment.
+ *
+ * This drives the severity floor for LC-FLOATING (analyze.ts): a floating alias sitting
+ * in prose stays informational, while a real quoted pin is a BEHAVIOR CHANGE that can
+ * fail `--fail-on behavior`. The grammar path previously hardcoded `false` here, so a
+ * quoted pin in source code — a Python dict key, a TS constant, every real-world way of
+ * writing one — was silently downgraded to the lowest tier, and `--fail-on behavior`
+ * could only ever catch floating aliases in JSON/YAML config. Found by running the tool
+ * against a real repo (workshop `engine/model_registry.py:114`), where an alias whose
+ * target retires in 11 days reported as UNRESOLVED.
+ *
+ * Requiring the quotes to bound the match exactly is the conservative choice: it keeps
+ * "the model is claude-opus-4-1 today" correctly informational rather than promoting
+ * every mention inside a sentence.
+ */
+function isWholeQuotedLiteral(text: string, start: number, end: number): boolean {
+  if (start === 0 || end >= text.length) return false;
+  const before = text[start - 1];
+  return (before === '"' || before === "'" || before === '`') && text[end] === before;
+}
+
 export function detectReferences(file: InputFile): ModelReference[] {
   const context = contextFor(file.path);
   const starts = lineStarts(file.text);
@@ -134,14 +157,15 @@ export function detectReferences(file: InputFile): ModelReference[] {
       }
       if (claimed.has(start)) continue;
       claimed.add(start);
+      const end = start + match[0].length;
       refs.push({
         file: file.path,
         line: lineFor(starts, start),
-        range: { start, end: start + match[0].length },
+        range: { start, end },
         raw: match[0],
         publisher,
         context,
-        viaQuotedLiteral: false,
+        viaQuotedLiteral: isWholeQuotedLiteral(file.text, start, end),
       });
     }
   }
