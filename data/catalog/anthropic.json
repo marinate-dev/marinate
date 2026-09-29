@@ -37,7 +37,47 @@
       "https://platform.claude.com/docs/en/release-notes/api",
       "https://platform.claude.com/docs/en/about-claude/models/migration-guide"
     ],
-    "verifiedAt": "2026-07-24"
+    "verifiedAt": "2026-09-29",
+    "successor": "claude-fable-5-1"
+  },
+  {
+    "id": "claude-fable-5-1",
+    "publisher": "anthropic",
+    "aliases": [
+      "claude-fable-5-1"
+    ],
+    "family": "claude-fable",
+    "generation": 5.1,
+    "released": "2026-09-01",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 10,
+      "outPerMTok": 50
+    },
+    "capabilities": {
+      "samplingParams": false,
+      "budgetTokens": false,
+      "adaptiveThinking": true,
+      "prefill": false,
+      "effort": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low"
+      ],
+      "cacheMinTokens": 512
+    },
+    "sources": [
+      "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "https://platform.claude.com/docs/en/about-claude/pricing",
+      "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+      "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+      "https://platform.claude.com/docs/en/release-notes/api",
+      "https://platform.claude.com/docs/en/about-claude/models/migration-guide"
+    ],
+    "verifiedAt": "2026-09-29"
   },
   {
     "id": "claude-mythos-5",
@@ -77,7 +117,47 @@
       "https://platform.claude.com/docs/en/release-notes/api",
       "https://platform.claude.com/docs/en/about-claude/models/migration-guide"
     ],
-    "verifiedAt": "2026-07-24"
+    "verifiedAt": "2026-09-29",
+    "successor": "claude-mythos-5-1"
+  },
+  {
+    "id": "claude-mythos-5-1",
+    "publisher": "anthropic",
+    "aliases": [
+      "claude-mythos-5-1"
+    ],
+    "family": "claude-mythos",
+    "generation": 5.1,
+    "released": "2026-09-01",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 10,
+      "outPerMTok": 50
+    },
+    "capabilities": {
+      "samplingParams": false,
+      "budgetTokens": false,
+      "adaptiveThinking": true,
+      "prefill": false,
+      "effort": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low"
+      ],
+      "cacheMinTokens": 512
+    },
+    "sources": [
+      "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "https://platform.claude.com/docs/en/about-claude/pricing",
+      "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+      "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+      "https://platform.claude.com/docs/en/release-notes/api",
+      "https://platform.claude.com/docs/en/about-claude/models/migration-guide"
+    ],
+    "verifiedAt": "2026-09-29"
   },
   {
     "id": "claude-opus-5",
@@ -117,7 +197,47 @@
       "https://platform.claude.com/docs/en/build-with-claude/working-with-messages",
       "https://platform.claude.com/docs/en/release-notes/api"
     ],
-    "verifiedAt": "2026-07-24"
+    "verifiedAt": "2026-09-29",
+    "successor": "claude-opus-5-5"
+  },
+  {
+    "id": "claude-opus-5-5",
+    "publisher": "anthropic",
+    "aliases": [
+      "claude-opus-5-5"
+    ],
+    "family": "claude-opus",
+    "generation": 5.5,
+    "released": "2026-09-22",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 4,
+      "outPerMTok": 20
+    },
+    "capabilities": {
+      "samplingParams": false,
+      "budgetTokens": false,
+      "adaptiveThinking": true,
+      "prefill": false,
+      "effort": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low"
+      ],
+      "cacheMinTokens": 512
+    },
+    "sources": [
+      "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "https://platform.claude.com/docs/en/about-claude/pricing",
+      "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+      "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+      "https://platform.claude.com/docs/en/release-notes/api",
+      "https://platform.claude.com/docs/en/about-claude/models/migration-guide"
+    ],
+    "verifiedAt": "2026-09-29"
   },
   {
     "id": "claude-opus-4-8",
@@ -293,8 +413,8 @@
     "released": "2026-06-30",
     "status": "active",
     "pricing": {
-      "inPerMTok": 3,
-      "outPerMTok": 15
+      "inPerMTok": 2,
+      "outPerMTok": 10
     },
     "capabilities": {
       "samplingParams": false,
@@ -319,7 +439,47 @@
       "https://platform.claude.com/docs/en/build-with-claude/working-with-messages",
       "https://platform.claude.com/docs/en/release-notes/api"
     ],
-    "verifiedAt": "2026-07-24"
+    "verifiedAt": "2026-09-29",
+    "successor": "claude-sonnet-5-5"
+  },
+  {
+    "id": "claude-sonnet-5-5",
+    "publisher": "anthropic",
+    "aliases": [
+      "claude-sonnet-5-5"
+    ],
+    "family": "claude-sonnet",
+    "generation": 5.5,
+    "released": "2026-09-28",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 2,
+      "outPerMTok": 10
+    },
+    "capabilities": {
+      "samplingParams": false,
+      "budgetTokens": false,
+      "adaptiveThinking": true,
+      "prefill": false,
+      "effort": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low"
+      ],
+      "cacheMinTokens": 512
+    },
+    "sources": [
+      "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "https://platform.claude.com/docs/en/about-claude/pricing",
+      "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+      "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+      "https://platform.claude.com/docs/en/release-notes/api",
+      "https://platform.claude.com/docs/en/about-claude/models/migration-guide"
+    ],
+    "verifiedAt": "2026-09-29"
   },
   {
     "id": "claude-sonnet-4-6",
@@ -400,7 +560,7 @@
     "family": "claude-opus",
     "generation": 4.1,
     "released": "2025-08-05",
-    "status": "deprecated",
+    "status": "retired",
     "retiresAt": "2026-08-05",
     "successor": "claude-opus-4-8",
     "pricing": {
@@ -424,7 +584,7 @@
       "https://platform.claude.com/docs/en/build-with-claude/working-with-messages",
       "https://platform.claude.com/docs/en/release-notes/api"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-09-29"
   },
   {
     "id": "claude-opus-4-20250514",
