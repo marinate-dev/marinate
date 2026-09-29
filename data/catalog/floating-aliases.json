@@ -52,7 +52,7 @@
   {
     "alias": "opus",
     "publisher": "anthropic",
-    "currently": "claude-opus-5",
+    "currently": "claude-opus-5-5",
     "variantSuffixes": [
       "[1m]"
     ],
@@ -60,14 +60,14 @@
       "https://code.claude.com/docs/en/model-config",
       "https://platform.claude.com/docs/en/about-claude/models/overview"
     ],
-    "verifiedAt": "2026-07-24",
+    "verifiedAt": "2026-09-29",
     "previously": "claude-opus-4-8",
     "movedAt": "2026-07-24"
   },
   {
     "alias": "sonnet",
     "publisher": "anthropic",
-    "currently": "claude-sonnet-5",
+    "currently": "claude-sonnet-5-5",
     "variantSuffixes": [
       "[1m]"
     ],
@@ -75,7 +75,7 @@
       "https://code.claude.com/docs/en/model-config",
       "https://platform.claude.com/docs/en/about-claude/models/overview"
     ],
-    "verifiedAt": "2026-07-24"
+    "verifiedAt": "2026-09-29"
   },
   {
     "alias": "haiku",
@@ -90,10 +90,10 @@
   {
     "alias": "fable",
     "publisher": "anthropic",
-    "currently": "claude-fable-5",
+    "currently": "claude-fable-5-1",
     "sources": [
       "https://code.claude.com/docs/en/model-config"
     ],
-    "verifiedAt": "2026-07-24"
+    "verifiedAt": "2026-09-29"
   }
 ]
