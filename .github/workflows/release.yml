@@ -15,6 +15,13 @@ on:
   push:
     tags:
       - 'v*'
+    # Publish-on-merge (2026-09-29): a merged catalog PR bumps packages/cli's
+    # version, and that bump is the release. Versions already on npm are skipped,
+    # so a merge that touches nothing publishable is a no-op, never a failure.
+    branches: [main]
+    paths:
+      - 'packages/cli/package.json'
+      - 'packages/engine/package.json'
   workflow_dispatch:
     inputs:
       dry-run:
@@ -55,14 +62,24 @@ jobs:
           echo '{"model":"opus[1m]"}' > /tmp/smoke/.claude/settings.json
           node packages/cli/dist/index.js check /tmp/smoke
 
-      - name: Publish engine, then CLI
+      - name: Publish engine, then CLI (each only if its version is not on npm yet)
         if: github.event_name == 'push' || inputs.dry-run == false
         # Order matters: the CLI declares a workspace dependency on the engine, and
         # `pnpm publish` rewrites it to the real version at pack time. Publishing the CLI
         # first would point it at a version that does not exist yet.
         run: |
-          cd packages/engine && pnpm publish --access public --no-git-checks --provenance
-          cd ../cli && pnpm publish --access public --no-git-checks --provenance
+          publish_if_new() {
+            local dir="$1" name version
+            name=$(node -p "require('./$dir/package.json').name")
+            version=$(node -p "require('./$dir/package.json').version")
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "$name@$version is already on npm — skipping"
+              return 0
+            fi
+            (cd "$dir" && pnpm publish --access public --no-git-checks --provenance)
+          }
+          publish_if_new packages/engine
+          publish_if_new packages/cli
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
