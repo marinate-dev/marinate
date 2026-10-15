@@ -528,8 +528,8 @@
     "family": "claude-sonnet",
     "generation": 4.5,
     "released": "2025-09-29",
-    "status": "active",
-    "successor": "claude-sonnet-5",
+    "status": "deprecated",
+    "successor": "claude-sonnet-5-5",
     "pricing": {
       "inPerMTok": 3,
       "outPerMTok": 15
@@ -542,6 +542,7 @@
       "cacheMinTokens": 1024
     },
     "sources": [
+      "https://platform.claude.com/docs/en/about-claude/model-deprecations",
       "https://platform.claude.com/docs/en/about-claude/models/overview",
       "https://platform.claude.com/docs/en/about-claude/models/migration-guide",
       "https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions",
@@ -551,7 +552,8 @@
       "https://platform.claude.com/docs/en/build-with-claude/working-with-messages",
       "https://platform.claude.com/docs/en/release-notes/api"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-10-15",
+    "retiresAt": "2026-11-30"
   },
   {
     "id": "claude-opus-4-1-20250805",
@@ -639,7 +641,7 @@
     "generation": 4,
     "released": "2025-05-22",
     "status": "retired",
-    "successor": "claude-sonnet-4-6",
+    "successor": "claude-sonnet-5-5",
     "pricing": {
       "inPerMTok": 3,
       "outPerMTok": 15
@@ -658,7 +660,7 @@
       "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
       "https://platform.claude.com/docs/en/release-notes/api"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-10-15"
   },
   {
     "id": "claude-3-7-sonnet-20250219",
@@ -706,6 +708,45 @@
     "verifiedAt": "2026-07-23"
   },
   {
+    "id": "claude-haiku-5-5",
+    "publisher": "anthropic",
+    "aliases": [
+      "claude-haiku-5-5"
+    ],
+    "family": "claude-haiku",
+    "generation": 5.5,
+    "released": "2026-10-07",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 0.1,
+      "outPerMTok": 0.5
+    },
+    "capabilities": {
+      "samplingParams": false,
+      "budgetTokens": false,
+      "adaptiveThinking": true,
+      "prefill": false,
+      "effort": [
+        "max",
+        "xhigh",
+        "high",
+        "medium",
+        "low"
+      ],
+      "cacheMinTokens": 512
+    },
+    "sources": [
+      "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "https://platform.claude.com/docs/en/about-claude/pricing",
+      "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+      "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "https://platform.claude.com/docs/en/build-with-claude/prompt-caching",
+      "https://platform.claude.com/docs/en/build-with-claude/extended-thinking",
+      "https://platform.claude.com/docs/en/release-notes/api"
+    ],
+    "verifiedAt": "2026-10-15"
+  },
+  {
     "id": "claude-haiku-4-5-20251001",
     "publisher": "anthropic",
     "aliases": [],
@@ -735,7 +776,8 @@
       "https://platform.claude.com/docs/en/build-with-claude/working-with-messages",
       "https://platform.claude.com/docs/en/release-notes/api"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-10-15",
+    "successor": "claude-haiku-5-5"
   },
   {
     "id": "claude-3-5-haiku-20241022",

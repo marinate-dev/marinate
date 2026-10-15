@@ -1,11 +1,11 @@
 [
   {
-    "id": "grok-4.5",
+    "id": "grok-4.7",
     "publisher": "xai",
     "aliases": [],
     "family": "grok-4",
-    "generation": 4.5,
-    "released": "2026-07",
+    "generation": 4.7,
+    "released": "2026-09-21",
     "status": "active",
     "pricing": {
       "inPerMTok": 2,
@@ -15,7 +15,43 @@
       "https://docs.x.ai/developers/models",
       "https://docs.x.ai/developers/release-notes"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-10-15"
+  },
+  {
+    "id": "grok-4.6",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4",
+    "generation": 4.6,
+    "released": "2026-08-12",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 2,
+      "outPerMTok": 6
+    },
+    "sources": [
+      "https://docs.x.ai/developers/models",
+      "https://docs.x.ai/developers/release-notes"
+    ],
+    "verifiedAt": "2026-10-15"
+  },
+  {
+    "id": "grok-4.5",
+    "publisher": "xai",
+    "aliases": [],
+    "family": "grok-4",
+    "generation": 4.5,
+    "released": "2026-07-08",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 2,
+      "outPerMTok": 6
+    },
+    "sources": [
+      "https://docs.x.ai/developers/models",
+      "https://docs.x.ai/developers/release-notes"
+    ],
+    "verifiedAt": "2026-10-15"
   },
   {
     "id": "grok-4.3",
