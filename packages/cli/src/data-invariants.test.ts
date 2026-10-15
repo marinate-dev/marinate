@@ -85,7 +85,7 @@ describe('lifecycle invariants', () => {
     // Uses a FIXED date, not `new Date()`: a clock-dependent test would start failing
     // on a day nobody touched the repo, and would make CI results irreproducible.
     // Bump this deliberately at each data release — that act IS the review.
-    const asOf = '2026-07-24';
+    const asOf = '2026-10-15';
 
     const overdue = models
       .filter((m) => m.retiresAt && m.retiresAt < asOf && m.status !== 'retired')

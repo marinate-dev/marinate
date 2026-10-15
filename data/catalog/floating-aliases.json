@@ -80,12 +80,15 @@
   {
     "alias": "haiku",
     "publisher": "anthropic",
-    "currently": "claude-haiku-4-5-20251001",
+    "currently": "claude-haiku-5-5",
     "sources": [
       "https://code.claude.com/docs/en/model-config",
-      "https://platform.claude.com/docs/en/about-claude/models/overview"
+      "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "https://platform.claude.com/docs/en/release-notes/api"
     ],
-    "verifiedAt": "2026-07-24"
+    "verifiedAt": "2026-10-15",
+    "previously": "claude-haiku-4-5-20251001",
+    "movedAt": "2026-10-07"
   },
   {
     "alias": "fable",
