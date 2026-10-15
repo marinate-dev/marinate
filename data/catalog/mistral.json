@@ -1,5 +1,24 @@
 [
   {
+    "id": "mistral-large-4",
+    "publisher": "mistral",
+    "aliases": [],
+    "family": "mistral-large",
+    "generation": 4,
+    "released": "2026-10-06",
+    "status": "active",
+    "pricing": {
+      "inPerMTok": 1.36,
+      "outPerMTok": 4.18
+    },
+    "sources": [
+      "https://docs.mistral.ai/getting-started/models/models_overview/",
+      "https://docs.mistral.ai/models/mistral-large-4-0",
+      "https://docs.mistral.ai/getting-started/changelog/"
+    ],
+    "verifiedAt": "2026-10-15"
+  },
+  {
     "id": "mistral-medium-3-5",
     "publisher": "mistral",
     "aliases": [],
@@ -150,13 +169,13 @@
     "aliases": [],
     "family": "mistral-medium",
     "generation": 3,
-    "status": "deprecated",
+    "status": "retired",
     "retiresAt": "2026-08-31",
     "successor": "mistral-medium-3-5",
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-10-15"
   },
   {
     "id": "mistral-medium-2508",
@@ -164,13 +183,13 @@
     "aliases": [],
     "family": "mistral-medium",
     "generation": 3.1,
-    "status": "deprecated",
+    "status": "retired",
     "retiresAt": "2026-08-31",
     "successor": "mistral-medium-3-5",
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-10-15"
   },
   {
     "id": "mistral-small-2506",
@@ -178,13 +197,13 @@
     "aliases": [],
     "family": "mistral-small",
     "generation": 3.2,
-    "status": "deprecated",
+    "status": "retired",
     "retiresAt": "2026-07-31",
     "successor": "mistral-small-2603",
     "sources": [
       "https://docs.mistral.ai/getting-started/models/models_overview/"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-10-15"
   },
   {
     "id": "devstral-2512",
@@ -193,7 +212,7 @@
     "family": "devstral",
     "generation": 2,
     "released": "2025-12-09",
-    "status": "deprecated",
+    "status": "retired",
     "retiresAt": "2026-07-31",
     "successor": "mistral-medium-3-5",
     "pricing": {
@@ -205,7 +224,7 @@
       "https://mistral.ai/pricing/api",
       "https://docs.mistral.ai/getting-started/changelog/"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-10-15"
   },
   {
     "id": "magistral-medium-2509",
@@ -214,7 +233,7 @@
     "family": "magistral-medium",
     "generation": 1.2,
     "released": "2025-09-17",
-    "status": "deprecated",
+    "status": "retired",
     "retiresAt": "2026-07-31",
     "successor": "mistral-medium-3-5",
     "pricing": {
@@ -226,7 +245,7 @@
       "https://mistral.ai/pricing/api",
       "https://docs.mistral.ai/getting-started/changelog/"
     ],
-    "verifiedAt": "2026-07-23"
+    "verifiedAt": "2026-10-15"
   },
   {
     "id": "magistral-small-2509",
@@ -234,7 +253,7 @@
     "aliases": [],
     "family": "magistral",
     "generation": 25.09,
-    "status": "deprecated",
+    "status": "retired",
     "retiresAt": "2026-07-31",
     "successor": "mistral-small-2603",
     "pricing": {
@@ -245,7 +264,7 @@
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api"
     ],
-    "verifiedAt": "2026-07-24"
+    "verifiedAt": "2026-10-15"
   },
   {
     "id": "open-mistral-nemo-2407",
@@ -253,7 +272,7 @@
     "aliases": [],
     "family": "open-mistral-nemo",
     "generation": 24.07,
-    "status": "deprecated",
+    "status": "retired",
     "retiresAt": "2026-07-31",
     "successor": "ministral-8b-2512",
     "pricing": {
@@ -264,6 +283,6 @@
       "https://docs.mistral.ai/getting-started/models/models_overview/",
       "https://mistral.ai/pricing/api"
     ],
-    "verifiedAt": "2026-07-24"
+    "verifiedAt": "2026-10-15"
   }
 ]
